@@ -4,6 +4,7 @@ ladder3
 *.o
 *.out
 *.log
+paper/build/
 # solver scratch/checkpoints
 scratch/
 scr*/

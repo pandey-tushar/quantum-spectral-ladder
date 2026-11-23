@@ -1,0 +1,1228 @@
+\documentclass[11pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+
+\newcommand{\todo}[1]{\textbf{[TODO: #1]}}
+
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{lemma}[conjecture]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[conjecture]{Definition}
+\newtheorem{observation}[conjecture]{Numerical observation}
+\newtheorem{question}[conjecture]{Question}
+\theoremstyle{remark}
+\newtheorem{remark}[conjecture]{Remark}
+
+\newcommand{\Vol}{\operatorname{Vol}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\title[A spectral ladder for quantum representations]{A spectral ladder for the $SO(3)$ quantum representations of the once-punctured torus mapping class group}
+
+\author{\todo{author names}}
+\address{\todo{affiliation}}
+\email{\todo{email}}
+
+\date{\todo{date}}
+
+\begin{document}
+
+\begin{abstract}
+We study numerically the eigenvalues of the $SO(3)$ quantum representations
+$\rho_{r,c}$ of the mapping class group of the once-punctured torus at the root
+of unity $q = e^{2\pi i/r}$, $r$ odd, with puncture colour $c$. For the
+pseudo-Anosov words $LR$ and $LLR$, and for colours whose associated cone angle
+$\theta$ is close to $0$, $1$, $2$ or $3$, we computed the moduli of the eight
+eigenvalues of largest modulus for $r$ up to $10001$, as Ritz approximations
+without certified error bounds. The moduli are described, to the accuracy
+of the data, by a ladder
+\[
+\log|\lambda_n| = \frac{r}{4\pi}\Vol(M_\varphi(\theta)) - \left(n+\tfrac12\right)\log|\mu(\theta)|
++ \frac{\alpha + \gamma (n+\frac12)^2}{r} + O(r^{-2}),
+\]
+where $M_\varphi(\theta)$ is the hyperbolic cone manifold structure on the mapping
+torus with cone angle $\theta$ along the fiber boundary, and $\mu(\theta)$ is the
+expanding multiplier of the trace map of $\varphi$ at the geometric fixed point.
+We state the first two terms as a conjecture and the $1/r$ term as a numerical
+observation. We give a heuristic that relates the ladder to the trace of
+$\rho_{r,c}(\varphi^k)$ for all $k$ and to a Birkhoff normal form of the trace map.
+All evidence in this paper is numerical; nothing here is proved.
+\end{abstract}
+
+\maketitle
+
+%======================================================================
+\section{Introduction and statement}
+%======================================================================
+
+Let $\Sigma$ be a once-punctured torus and let $\varphi$ be a pseudo-Anosov mapping
+class, written as a word in the standard generators $L$ and $R$. For an odd integer
+$r \ge 3$ and an even colour $c \in \{0, 2, \dots, r-3\}$ of the puncture, the
+$SO(3)$ quantum representation gives a matrix $\rho_{r,c}(\varphi)$ of size
+$d_{r,c} = (r-1-c)/2$, defined up to a scalar root of unity. We work at
+$q = e^{2\pi i/r}$; Section~\ref{sec:setup} fixes all conventions. The moduli of the
+eigenvalues do not depend on the scalar ambiguity.
+
+Chen and Yang \cite{CY} conjectured that at the root $e^{2\pi i/r}$ (rather than
+$e^{\pi i/r}$) the Reshetikhin-Turaev and Turaev-Viro invariants of hyperbolic
+$3$-manifolds grow exponentially in $r$ with rates given by the complex volume and
+the volume. Detcherry and Kalfagianni \cite{DK} express the trace of
+$\rho_{r,c}(f)$ as a Reshetikhin-Turaev invariant of a mapping torus with a coloured
+link (Section~\ref{sec:prior}). Traces are sums of eigenvalues. This paper asks how
+the individual eigenvalues behave, and reports a regular structure in the moduli.
+
+\subsection{The cone angle}
+To a pair $(r,c)$ we associate
+\begin{equation}\label{eq:theta}
+\theta = \theta_{r,c} = \left| 2\pi - \frac{4\pi (c+1)}{r} \right| \in (0, 2\pi).
+\end{equation}
+Let $M_\varphi$ be the mapping torus of $\varphi$; it is a hyperbolic $3$-manifold
+with one cusp. Its peripheral torus contains the fiber boundary $\partial\Sigma$.
+For the word $LR$ the manifold $M_\varphi$ is the complement of the figure-eight knot
+\cite{PW} and $\partial\Sigma$ is the longitude of the knot. We write $M_\varphi(\theta)$
+for the hyperbolic cone structure on the generalized Dehn filling of $M_\varphi$ along
+$\partial\Sigma$ in which the holonomy of $\partial\Sigma$ is elliptic with rotation
+angle $\theta$, and $\theta = 0$ is the complete structure. Pandey and Wong
+\cite{PW} use cone structures of this kind, with the cone angle around the curve of
+$\Sigma$ that goes around the puncture, and prove that for $LR$ they exist for every
+$\theta \in [0, 2\pi)$ \cite[Lemma~4.1]{PW}.
+
+\subsection{The multiplier}
+Let $x, y, z$ be the trace coordinates of the $SL_2(\C)$ character variety of the
+free group $\pi_1(\Sigma)$ and
+$\kappa(x,y,z) = x^2 + y^2 + z^2 - xyz - 2$, the trace of the commutator. The word
+$\varphi$ acts on $\C^3$ by a polynomial map preserving $\kappa$
+(Section~\ref{sec:classical}). The restriction to $\pi_1(\Sigma)$ of the holonomy of
+$M_\varphi(\theta)$ is a fixed point of this map on the level surface
+$\kappa = -2\cos(\theta/2)$; we call it the geometric fixed point. The derivative of
+the map at this point, restricted to the tangent plane of the level surface, has
+a pair of eigenvalues $\mu(\theta)$, $\mu(\theta)^{-1}$ (Lemma~\ref{lem:jac}). We
+label them so that $|\mu(\theta)| \ge 1$. The lemma does not give
+$|\mu(\theta)| > 1$; it holds in the eight computed cases, and
+Conjecture~\ref{conj:ladder} assumes it.
+
+\subsection{Statement}
+Order the eigenvalues of $\rho_{r,c}(\varphi)$ by decreasing modulus as
+$\lambda_0, \lambda_1, \lambda_2, \dots$.
+
+\begin{conjecture}[Spectral ladder]\label{conj:ladder}
+Let $\varphi$ be a pseudo-Anosov word in $L, R$. Let $r \to \infty$ through odd
+integers and let $c = c_r$ be even colours such that $\theta_r = \theta_{r,c_r}$
+converges to a limit $\theta_\infty$ for which the cone structure $M_\varphi(\theta)$
+exists, deforming the complete structure, for all $\theta$ between $0$ and
+$\theta_\infty$, and such that $|\mu(\theta)| > 1$ on this range. Then for every
+fixed $n = 0, 1, 2, \dots$,
+\[
+\log|\lambda_n| = \frac{r}{4\pi}\Vol\big(M_\varphi(\theta_r)\big)
+- \left(n + \tfrac12\right)\log|\mu(\theta_r)| + o(1).
+\]
+\end{conjecture}
+
+\begin{remark}[Assumptions and how far they are tested]\label{rem:assumptions}
+(a) Both colour branches $c < r/2$ and $c > r/2$ are allowed in
+Conjecture~\ref{conj:ladder}. The branch $c > r/2$ occurs in the data only at
+$r = 1001$, $\theta \approx 2.9941$, $c = 738$ (\texttt{data/r201-1001\_summary.txt},
+lines 33 and 65); all rows with $r \ge 2001$ have $c < r/2$.
+(b) For $LLR$ the existence of the cone structures $M_\varphi(\theta)$ for
+$\theta \le 3$ is supported only numerically, by the SnapPy volumes of
+Section~\ref{sec:classical}; for $LR$ it is proved in \cite[Lemma~4.1]{PW}.
+(c) The geometric fixed point and its complex conjugate give the same $|\mu|$, so
+the choice between them does not affect the moduli in the conjecture.
+\end{remark}
+
+The evidence (Section~\ref{sec:evidence}) covers $\varphi \in \{LR, LLR\}$,
+$\theta_\infty \in \{0, 1, 2, 3\}$, $n \le 7$ and $r \le 10001$. For other words the
+data stop at $r = 101$ (Section~\ref{sec:method}).
+
+\begin{observation}\label{obs:subleading}
+In the same cases the remainder is of order $1/r$ with an explicit dependence on $n$:
+\[
+\log|\lambda_n| = \frac{r}{4\pi}\Vol\big(M_\varphi(\theta_r)\big)
+- \left(n + \tfrac12\right)\log|\mu(\theta_r)|
++ \frac{\alpha + \gamma\,(n+\frac12)^2}{r} + O(r^{-2}),
+\]
+with constants $\alpha = \alpha(\varphi, \theta_\infty)$ and
+$\gamma = \gamma(\varphi, \theta_\infty)$ fitted from the data in
+Table~\ref{tab:fits}.
+\end{observation}
+
+Observation~\ref{obs:subleading} is stated as an observation, not as part of the
+conjecture, because $\alpha$ and $\gamma$ are fitted numbers and the fitting script
+is not part of the companion repository (Section~\ref{sec:method}). For $\gamma$,
+Section~\ref{sec:normalform} reports a numerical observation that identifies it with
+a normal-form coefficient of the trace map; $\alpha$ has no proposed closed form.
+
+\begin{remark}
+The ladder can only describe the top of the spectrum. By~\eqref{eq:theta},
+$(c+1)/r = \frac12 \mp \frac{\theta}{4\pi}$ according as $c < r/2$ or $c > r/2$, so the
+matrix size is $d_{r,c} = (r-1-c)/2 \approx r(2\pi \pm \theta)/(8\pi)$, which grows
+linearly in $r$, while the statement is for fixed $n$ as $r \to \infty$.
+\end{remark}
+
+\subsection*{Organisation}
+Section~\ref{sec:setup} defines the matrices. Section~\ref{sec:classical} describes
+the classical quantities $\Vol$ and $\mu$. Section~\ref{sec:heuristic} gives a
+heuristic for the ladder. Section~\ref{sec:method} describes the numerical method and
+its limits, and Section~\ref{sec:evidence} the evidence. Section~\ref{sec:prior}
+discusses prior work and open problems.
+
+%======================================================================
+\section{Setup: the representation and conventions}\label{sec:setup}
+%======================================================================
+
+We describe the matrices exactly as they are built in the reference implementation
+(\texttt{analysis/reference\_mprep.py}, lines 4--53, with $s = 2$) of the companion
+repository \todo{repository URL}.
+
+\subsection{Quantum integers and colours}
+Fix an odd $r \ge 5$. Put
+\[
+[n] = \frac{\sin(2\pi n/r)}{\sin(2\pi/r)}, \qquad [n]! = [1][2]\cdots[n], \quad [0]! = 1.
+\]
+The colours are the even integers $a \in \{0, 2, \dots, r-3\}$. The quantum dimension
+of $a$ is $d_a = [a+1]$ and its twist is
+\[
+\theta_a = \exp\!\left(\frac{4\pi i\, k(k+1)}{r}\right), \qquad k = a/2.
+\]
+(We use $\theta_a$ with a subscript for twists and $\theta$ without one for cone
+angles.) A triple $(a,b,x)$ is admissible if $a+b+x$ is even,
+$|a-b| \le x \le a+b$ and $a+b+x \le 2(r-2)$. For an admissible triple put
+\[
+\Delta(a,b,x) = \left(\frac{[\frac{a+b-x}{2}]!\,[\frac{a-b+x}{2}]!\,[\frac{-a+b+x}{2}]!}{[\frac{a+b+x}{2}+1]!}\right)^{1/2},
+\]
+with the principal branch of the complex square root, since the radicand can be
+negative.
+
+\subsection{Quantum $6j$ symbols}
+For $(j_1,\dots,j_6)$ such that the four triples
+$(j_1,j_2,j_3)$, $(j_1,j_5,j_6)$, $(j_4,j_2,j_6)$, $(j_4,j_5,j_3)$ are admissible, let
+$a_1,\dots,a_4$ be the half sums of these triples and
+$b_1 = \frac{j_1+j_2+j_4+j_5}{2}$, $b_2 = \frac{j_2+j_3+j_5+j_6}{2}$,
+$b_3 = \frac{j_3+j_1+j_6+j_4}{2}$. Then
+\[
+\begin{Bmatrix} j_1 & j_2 & j_3 \\ j_4 & j_5 & j_6 \end{Bmatrix}
+= \prod_{\text{4 triples}} \Delta \cdot
+\sum_{z = \max a_i}^{\min b_j} \frac{(-1)^z\, [z+1]!}{\prod_{i}[z-a_i]!\,\prod_j [b_j - z]!},
+\]
+and the symbol is $0$ if a triple is not admissible.
+
+\subsection{The generators}
+Fix the puncture colour $c$. The basis of the representation space is indexed by the
+colours $a$ with $(a,a,c)$ admissible; there are $d_{r,c} = (r-1-c)/2$ of them. Define
+\[
+S_{ab} = \sqrt{d_a}\,\sqrt{d_b} \sum_{x} d_x\, \frac{\theta_x}{\theta_a\theta_b}
+\begin{Bmatrix} a & a & c \\ b & b & x \end{Bmatrix} (-1)^{(a+b+x)/2},
+\]
+the sum running over colours $x$ with $(a,b,x)$ admissible, and
+\[
+T_a = \operatorname{diag}(\theta_a), \qquad T_b = S\, T_a\, S^{-1}.
+\]
+The mapping class $\varphi$ is represented by
+\[
+A_{LR} = T_b^{-1} T_a, \qquad A_{LLR} = T_b^{-2} T_a
+\]
+(\texttt{analysis/reference\_run.py}, line 11; \texttt{solver/README.md}, lines 3--5).
+Overall scalar factors of $S$ cancel in $T_b$.
+
+The paper \cite{DK} gives no explicit matrices: it refers to \cite{BHMV} for the
+construction \cite[Section~2.1]{DK}, defines $\rho_{r,c}(f)$ through the mapping
+cylinder of $f$ \cite[Section~2.2]{DK}, and states compatibility with composition only
+up to a power of $\zeta_{2r}$ \cite[Thm.~2.1(5)]{DK}. We compare with \cite{BHMV}
+directly. There the twist eigenvalues are $\mu_i = (-1)^i A^{i^2+2i}$
+\cite[5.8]{BHMV}; with $A = e^{i\pi/r}$ and $i = a$ even this is
+$e^{i\pi a(a+2)/r} = q^{a(a+2)/2}$ with $q = e^{2\pi i/r}$, which is exactly the
+diagonal entry $\theta_a$ of $T_a$. The basis of \cite[4.11]{BHMV} is indexed by
+admissible colourings, with even colours in the case of odd $p$, and the admissibility
+conditions \cite[4.3--4.4]{BHMV} match those above. So $T_a$ is the standard $SO(3)$
+twist of \cite{BHMV} at $A = e^{i\pi/r}$. That $T_b = S T_a S^{-1}$ is the twist along
+the second curve we have confirmed in two ways only: at $c = 0$, where $S$ reduces to
+the $S$-matrix of the Hopf link, and through the braid relation
+$T_a T_b T_a = T_b T_a T_b$, whose residual the reference script computes for every
+colour (\texttt{analysis/reference\_run.py}, line 9). Gilmer and Masbaum \cite{GM}
+use a lollipop basis for the one-holed torus and the presentation
+$\Gamma_{1,1} = \langle t, t^* \mid t t^* t = t^* t t^* \rangle$, with boundary twist
+$(tt^*)^6$, so the braid relation is the defining relation. Given it, $T_a$ and $T_b$
+define a representation of $\Gamma_{1,1}$. Under the map to $SL_2(\Z)$ that appears in
+the limit of \cite{San}, $t_y \mapsto \left(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\right)$,
+$t_z \mapsto \left(\begin{smallmatrix}1&0\\-1&1\end{smallmatrix}\right)$, with $T_a$,
+$T_b$ in place of $t_y$, $t_z$, the words
+$T_b^{-1}T_a$ and $T_b^{-2}T_a$ go to matrices of trace $3$ and $4$, the conjugacy
+classes of the monodromies $LR$ (the figure-eight knot) and $LLR$
+\todo{the sign $(-1)^{(a+b+x)/2}$ in $S$ (\texttt{analysis/reference\_mprep.py},
+line 49) has not been checked against a printed formula for $c > 0$}.
+
+\begin{remark}[Conventions that do not affect the moduli]\label{rem:conventions}
+Which of $T_a^{\pm1}$, $T_b^{\pm1}$ is $L$ or $R$, and whether a word gives
+$\rho_{r,c}(\varphi)$ or $\rho_{r,c}(\varphi^{-1})$, does not change the moduli we
+report. The representation preserves the Hermitian form of the TQFT
+\cite[Thm.~2.1(1)]{DK}, which is nondegenerate and invariant under the mapping class
+group action up to the projective ambiguity \cite{BHMV}. If $H$ is its matrix, this
+invariance gives $\rho_{r,c}(\varphi)^{-1} = H^{-1}\rho_{r,c}(\varphi)^*H$ up to a
+unimodular scalar, so the spectrum of $\rho_{r,c}(\varphi^{-1})$ is the complex
+conjugate of the spectrum of $\rho_{r,c}(\varphi)$ up to that scalar and has the same
+moduli; equivalently, the spectrum of $\rho_{r,c}(\varphi)$ is closed under
+$\lambda \mapsto 1/\bar\lambda$ up to that scalar. For $LR$ this is also seen
+directly: $\varphi$ is conjugate to $\varphi^{-1}$, in $B_3$ by
+$\Delta = \sigma_1\sigma_2\sigma_1$. The projective ambiguity is a scalar of modulus
+$1$. The form is positive definite for the torus without marked point
+\cite[4.12]{BHMV}; in general its signature depends on the root. A linear map
+preserving a definite Hermitian form has all eigenvalues of modulus $1$, so at every
+$(r,c)$ where we observe an eigenvalue with $|\lambda| \ne 1$ the invariant form is
+indefinite, consistent with that remark of \cite{BHMV}.
+\end{remark}
+
+\begin{remark}
+In the data files, the third column is $d_{r,c}$, not an eigenvalue index; for
+example $r = 2001$, $c = 1000$ gives $d = 500$ (\texttt{data/r2001\_raw.txt}, line 1).
+With~\eqref{eq:theta}, the colour $c = (r-1)/2$ gives $\theta = 2\pi/r$, the closest
+approach to $\theta = 0$.
+\end{remark}
+
+%======================================================================
+\section{Classical side}\label{sec:classical}
+%======================================================================
+
+\subsection{The trace map}
+In trace coordinates the generators act by
+\[
+R(x,y,z) = (x,\ z,\ xz - y), \qquad L(x,y,z) = (z,\ y,\ zy - x),
+\]
+and a word acts by composing these maps from right to left
+(\texttt{analysis/trace\_map.py}, lines 3--9). Both maps preserve
+$\kappa(x,y,z) = x^2+y^2+z^2-xyz-2$ (line 10); for $L$,
+\[
+z^2 + y^2 + (zy-x)^2 - zy(zy-x) - 2 = x^2+y^2+z^2-xyz-2 .
+\]
+The level used for the cone angle $\theta$ is $\kappa = -2\cos(\theta/2)$
+(line 12); $\theta = 0$ gives $\kappa = -2$, the parabolic commutator of the complete
+structure.
+
+\begin{lemma}\label{lem:jac}
+Let $f$ be a word map, $p$ a fixed point of $f$ with $d\kappa_p \ne 0$. Then the
+eigenvalues of the Jacobian $df_p$ are $1$, $\mu$ and $\mu^{-1}$ for some
+$\mu \in \C^\times$, and $\mu^{\pm1}$ are the eigenvalues of $df_p$ on the tangent
+plane $\ker d\kappa_p$ of the level surface.
+\end{lemma}
+
+\begin{proof}
+The Jacobian of $L$ is $\begin{pmatrix} 0&0&1\\0&1&0\\-1&z&y\end{pmatrix}$, of
+determinant $1$, and similarly for $R$; so $\det df_p = 1$. From $\kappa\circ f =
+\kappa$ we get $d\kappa_p \circ df_p = d\kappa_p$, so $\ker d\kappa_p$ is invariant
+and $df_p$ acts on the quotient $\C^3/\ker d\kappa_p$ by $1$. The product of the two
+eigenvalues on $\ker d\kappa_p$ is therefore $\det df_p = 1$.
+\end{proof}
+
+We write $\mu(\theta)$ for the eigenvalue with $|\mu| \ge 1$ at the geometric fixed
+point. Numerically, the geometric fixed point is defined as follows
+(\texttt{analysis/ladder\_tools.cpp}, lines 173--192): among the non-real fixed points
+of the word map on the level surface, it is the one of maximal volume, where the
+volume is computed from one ideal tetrahedron per letter of the word, as the absolute
+value of a sum of Bloch-Wigner dilogarithms of their shapes (lines 116--171). The two
+points of a complex-conjugate pair have the same volume; of these the one with
+$\mathrm{Im}\,x > 0$ is taken (line 183). At $\theta = 0$ this volume equals the
+hyperbolic volumes $2.0298832128$ of the figure-eight knot complement ($LR$) and
+$2.6667447834$ ($LLR$), and in all eight cases the same point also has the largest
+$|\mu|$ among the non-real fixed points (reported by the self-test, line 436). The
+earlier script \texttt{analysis/trace\_map.py} (lines 11--24 and 36--43) selects the
+non-real fixed point of largest $|\mu|$ instead, so the two rules agree in the eight
+cases. This is the definition used numerically; we do not prove that it returns the
+restriction of the holonomy of $M_\varphi(\theta)$ for all $\theta$.
+
+For $LR$ at $\theta = 0$ the committed value is $\log\mu = 1.5668$
+(\texttt{data/ladder\_subleading\_fits.csv}, line 6). Then
+$\mu = e^{1.5668} \approx 4.7913$ and $\mu + \mu^{-1} = 5.000$ to the printed
+digits, so $\mu = (5+\sqrt{21})/2$ and
+\[
+(1-\mu)(1-\mu^{-1}) = 2 - (\mu+\mu^{-1}) = -3 .
+\]
+
+\subsection{Volume and the Schl\"afli formula}
+The volumes are computed with SnapPy as the volume of the bundle $b{+}{+}\varphi$
+after the filling $(2\pi/\theta, 0)$ (\texttt{analysis/analyze\_rows.py},
+lines 5--8). At $\theta = 0$ the committed values are $\Vol = 2.02988$ for $LR$ and
+$2.66674$ for $LLR$ (\texttt{data/ladder\_subleading\_fits.csv}, lines 6 and 2).
+
+The Schl\"afli formula for cone manifolds gives $d\Vol/d\theta = -\ell/2$, where
+$\ell$ is the length of the singular geodesic \cite[equation~(23) and
+Remark~2.8 of the arXiv version]{HK}, where it is attributed to Hodgson's thesis and
+to Cooper, Hodgson and Kerckhoff. The committed fits list
+$d\Vol/d\theta$ and $d^2\Vol/d\theta^2$ (\texttt{data/ladder\_subleading\_fits.csv},
+columns \texttt{dVol\_dtheta}, \texttt{d2Vol}). For $LR$ at $\theta = 0$,
+$d^2\Vol/d\theta^2 = -0.14435$ (line 6), while $-1/(4\sqrt3) = -0.144338$. This is the
+value one expects if the filled curve is the longitude of the figure-eight knot, with
+normalized length squared $2\sqrt3$, through the expansion
+$\Vol(\theta) = \Vol(0) - \theta^2/(4Q) + O(\theta^4)$ for a curve of normalized
+length squared $Q$. This is the expansion of Neumann and Zagier \cite[Theorem~1A]{NZ},
+$\Vol(M_{(p,q)}) = \Vol(M) - \pi^2/Q(p,q) + \cdots$ with
+$Q(p,q) = (\text{length of } pm + ql)^2/(\text{area of the cusp torus})$ for a
+meridian $m$ and longitude $l$, applied
+to the generalized Dehn surgery coefficient $(p,q) = (0, 2\pi/\theta)$ of the
+longitude; generalized coefficients are defined by $pu + qv = 2\pi i$
+\cite[Section~4, (32)]{NZ}, where $u, v$ are the logarithmic holonomies of meridian
+and longitude. (Theorem~1A is stated for coprime integers $p, q$; the expansions of
+\cite[Section~6]{NZ} are derived from the same equation and are written in the
+deformation parameter.) For the figure-eight knot complement with its knot meridian and
+longitude, \cite[Section~6, p.~331]{NZ} gives
+$\Vol(M_{(p,q)}) = \Vol(M) - 2\sqrt3\,\pi^2/(p^2 + 12q^2) + \cdots$, that is
+$Q(p,q) = (p^2+12q^2)/(2\sqrt3)$, cusp shape $2\sqrt3\,i$, and $Q(0,1) = 2\sqrt3$ for
+the longitude. For the knot meridian $Q(1,0) = 1/(2\sqrt3)$, so the corresponding
+value of $d^2\Vol/d\theta^2$ would be twelve times larger. This supports that the cone angle sits
+along $\partial\Sigma$.
+
+\subsection{Torsion}
+A remark on names: Pandey and Wong \cite{PW} call the fiber boundary $\partial\Sigma$
+the meridian of $\Sigma$; for $LR$ it is the longitude of the figure-eight knot, and
+Porti \cite{Porti}, Dubois \cite{Dub}, Yamaguchi \cite{Yam} and Garoufalidis and Yoon
+\cite{GY21} call it the longitude. In this paper the torsion is always taken with
+respect to $\partial\Sigma$.
+
+Porti \cite[Prop.~5.9]{Porti} states, for a punctured surface bundle $M$ with
+monodromy $\varphi$ and $\gamma$ the boundary of the fiber, that the adjoint torsion
+with respect to $\gamma$ is
+\[
+\mathrm{T}_{M,\gamma} = \left.\frac{\det(d\varphi - t\,\mathrm{Id})}{(t-1)^n}\right|_{t=1},
+\]
+with $n = 1$ for $PSL_2(\C)$, at characters on the distinguished component away from
+an exceptional set, where $H^1(\Sigma; \mathrm{Ad}\rho)$ is identified with the Zariski
+tangent space of the character variety of $\Sigma$ \cite[Thm.~5.8]{Porti} and
+$d\varphi$ is the tangent map of the action of the monodromy on it. The survey gives
+no detailed proof and refers for it to Porti's 1997 memoir and to work of Kitayama and
+Terashima. The statement is not restricted to the complete structure; that the
+holonomy of $M_\varphi(\theta)$ is not exceptional and lies on the distinguished
+component is our assumption. For the once-punctured torus, the $3\times3$ determinant
+$\det(1 - d\varphi)$ vanishes because of the invariant function $\kappa$, and with
+Lemma~\ref{lem:jac} the proposition gives
+\begin{equation}\label{eq:porti}
+\mathrm{T}_{M_\varphi,\partial\Sigma} = \pm\det(1 - A) = \pm(1-\mu)(1-\mu^{-1})
+= \pm(2 - \mu - \mu^{-1}),
+\end{equation}
+where $A$ is the restriction of the Jacobian of the trace map to the tangent plane of
+the level surface of $\kappa$. Dubois \cite[Main Theorem, (8)]{Dub} gives the same
+description for fibered knots in $S^3$ and $\gamma$-regular non-metabelian
+representations, not necessarily parabolic: up to sign the torsion with respect to the
+longitude is $\prod_i 1/(1-\lambda_i)$ over the eigenvalues $\lambda_i \ne 1$ of the
+tangent map of the monodromy on the character variety of the fiber. His torsion is the
+reciprocal of Porti's.
+
+For the figure-eight knot Porti \cite[Section~5.2.1, (46)--(50)]{Porti} computes
+$\det(d\varphi - t\,\mathrm{Id}) = (t-1)(t^2 + (1 - 2x_1x_2)t + 1)$,
+$\mathrm{T}_{M,l} = 3 - 2x_1x_2$ and $\mathrm{T}_{M,l}^2 = 17 + 4x_l$, where $x_l$ is
+the trace of the longitude $l = \partial\Sigma$. On the level surface
+$x_l = \kappa = -2\cos(\theta/2)$, so
+\begin{equation}\label{eq:torLR}
+\mathrm{T}_{M,l}^2 = 17 - 8\cos(\theta/2).
+\end{equation}
+At $\theta = 0$, $|\mathrm{T}_{M,l}| = 3$. With respect to the knot meridian instead,
+\cite[(51)]{Porti} gives $\pm\frac12\sqrt{(m^2-5)(m^2-1)}$, of modulus $\sqrt3/2$ at the
+complete structure; the ratio of the two normalisations is the cusp shape
+\cite[Prop.~5.14]{Porti}. We use only the normalisation with respect to
+$\partial\Sigma$.
+
+We cite \cite{PW} from arXiv v1 (7 February 2024), the only version listed; we know
+of no published version. For $LR$, Pandey and Wong \cite[Prop.~4.4 and its proof]{PW}
+give the torsion along the cone family in shape-parameter form. They relate the adjoint
+twisted Reidemeister torsion $\mathrm{Tor}(M_\varphi, \mu_v, \rho_\theta)$, taken with
+respect to their curve $\mu_v$ around the puncture of $\Sigma$ (that is,
+$\partial\Sigma$), to the shape parameters $z_1, z_2$: the product of the second derivatives
+$f_j'' = 2(1+z_j)/(1-z_j)$ \cite[(4.12), (4.13)]{PW} of their potential functions
+equals $\pm 4\,\mathrm{Tor}$. Here $z_1, z_2$ solve
+$z_1^2 - (2-B)z_1 + 1 = 0$ and $z_2^2 - (2-B^{-1})z_2 + 1 = 0$ with $B = e^{i\eta}$,
+$\eta \in (-\pi, \pi)$, and $\theta = 2|\eta|$ \cite[(4.6), (4.7), Lemma~4.1]{PW}.
+Hence $\mathrm{Tor} = \pm \frac{(1+z_1)(1+z_2)}{(1-z_1)(1-z_2)}$. Since
+$z_1 + z_1^{-1} = 2 - B$,
+\[
+\left(\frac{1+z_1}{1-z_1}\right)^2 = \frac{z_1+z_1^{-1}+2}{z_1+z_1^{-1}-2} = -\frac{4-B}{B},
+\]
+and similarly for $z_2$ with $B^{-1}$, so
+$\mathrm{Tor}^2 = (4-B)(4-B^{-1}) = 17 - 8\cos(\theta/2)$, in agreement
+with~\eqref{eq:torLR}; this short computation is ours, and \cite{PW} do not state the
+closed form. At $\theta = 0$ it agrees with
+$z_1 = z_2 = e^{\pi i/3}$ at the complete structure \cite[Section~4.1]{PW}. Table~\ref{tab:torsion}
+compares~\eqref{eq:torLR} with $|(1-\mu)(1-\mu^{-1})|$ computed from the committed
+values of $\log\mu$, assuming $\mu$ real and positive, which is consistent with
+$\mu + \mu^{-1} = 5$ at $\theta = 0$.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{cccc}
+\toprule
+$\theta$ & $\log\mu$ (data) & $\mu + \mu^{-1} - 2$ & $\sqrt{17 - 8\cos(\theta/2)}$ \\
+\midrule
+0 & 1.5668  & 3.0000 & 3.0000 \\
+1 & 1.60086 & 3.15902 & 3.15901 \\
+2 & 1.68166 & 3.56053 & 3.56056 \\
+3 & 1.77223 & 4.05391 & 4.05390 \\
+\bottomrule
+\end{tabular}
+\caption{Word $LR$. Column 2 from \texttt{data/ladder\_subleading\_fits.csv},
+lines 6--9 (column \texttt{logmu}). Column 3 is $e^{x} + e^{-x} - 2$ for the printed
+$x$; column 4 is~\eqref{eq:torLR}. The printed $\log\mu$ has five or six
+significant digits, which limits the agreement to about $3\cdot 10^{-5}$.}
+\label{tab:torsion}
+\end{table}
+
+So, for $LR$ at these four angles, $|\det(1 - d\varphi|_{T})| = |\mathrm{Tor}|$ to the
+precision of the data, where $d\varphi|_T$ is the derivative on the tangent plane
+of the level surface. This is the instance of~\eqref{eq:porti} for the figure-eight
+knot, and a check that the numerically selected fixed point gives Porti's closed
+formula. At the complete structure the same description is in the
+literature in polynomial form. For a hyperbolic once-punctured torus bundle, Yoon
+\cite[proof of Thm.~4.11]{Yoon} shows that the adjoint twisted Alexander polynomial
+is $\det(tI - \varphi^*)$, with $\varphi^*$ induced by the monodromy on
+$H^1(F; \mathfrak{sl}_2(\C)) \cong T_{[\eta]}\mathcal{X}(F)$, and that it equals
+$(t-1)\det(tI - A)$, where $A$ is the restriction of $\varphi^*$ to the tangent space
+of the level set where the trace of the puncture curve $\lambda = \partial\bar F$ is
+$-2$. Dunfield, Garoufalidis and Yoon \cite[Thm.~3.2 and its proof, (29)--(31)]{DGY}
+give the same factorisation $\det(tI - \varphi_{\mathcal X}) = (t-1)^p
+\det(tI - \varphi_{\mathcal Y})$ for the $\C^3$-torsion polynomial of a mapping torus
+of a surface with $p$ punctures fixed by $\varphi$, citing Fried for the determinant
+formula, and state that the derivative of the $\C^3$-torsion polynomial at $t = 1$ is
+the $\C^3$-torsion \cite[Section~1, after Thm.~1.2]{DGY}. That the derivative at
+$t = 1$ is the torsion with respect to the longitude is due to Yamaguchi \cite{Yam},
+as stated in \cite[(4) and Thm.~1.7]{GY21}; we have not read \cite{Yam} itself. With
+$p = 1$ and $\mathcal Y$ the level surface $\kappa = -2$, this derivative is
+$\pm(1-\mu)(1-\mu^{-1})$, consistent with Table~\ref{tab:torsion} at $\theta = 0$.
+Both \cite{Yoon} and \cite{DGY} treat only the boundary-parabolic case $\theta = 0$;
+for $\theta > 0$ the sources are \cite[Prop.~5.9]{Porti} and \cite{Dub}, which cover
+general characters. We found no source that states the formula explicitly for cone
+structures; applying~\eqref{eq:porti} at the holonomy of $M_\varphi(\theta)$ is our
+step.
+
+For $LLR$ at $\theta = 0$ the value can be checked exactly. The word map is
+$f(x,y,z) = (w,\ z,\ wz - xz + y)$ with $w = xz^2 - yz - x$. Its fixed points satisfy
+$y = z$ and $x = z^2/(z^2-2)$, and on the level $\kappa = -2$ the non-real ones satisfy
+$z^4 - 5z^2 + 8 = 0$, so $z^2 = (5 \pm i\sqrt7)/2$ and $x = (3 \mp i\sqrt7)/2$. The
+trace of the Jacobian at a fixed point is $2xz^2 - 1 = 1 + \mu + \mu^{-1}$, hence
+$\mu + \mu^{-1} = 9 \mp i\sqrt7$ and
+\[
+(1-\mu)(1-\mu^{-1}) = -(7 \mp i\sqrt7), \qquad |(1-\mu)(1-\mu^{-1})| = \sqrt{56}
+\approx 7.4833 .
+\]
+Solving for $\mu$ gives $\log|\mu| = 2.229034$, in agreement with the committed
+$\log\mu = 2.22903$ (Table~\ref{tab:fits}). Garoufalidis and Yu \cite{GY} list
+$\tau_{LLR}(1) = (7 + \sqrt{-7})^{-1/2}$ and $\tau_{LR}(1) = 1/\sqrt3$ for their
+$1$-loop invariant at $\zeta = 1$, which they relate conjecturally to the adjoint
+torsion with respect to the fiber boundary; so $|\tau(1)|^{-2} = |\det(1 - A)|$ at
+$\theta = 0$ for both words, and for $LLR$ the two numbers agree up to sign and
+complex conjugation. For $LLR$ at $\theta > 0$ we have no independent torsion value to
+compare with.
+
+%======================================================================
+\section{Heuristic}\label{sec:heuristic}
+%======================================================================
+
+This section is heuristic. It explains why a ladder of this shape is natural; it
+does not prove anything.
+
+\subsection{Trace formula}
+For every $k \ge 1$, $\Tr \rho_{r,c}(\varphi^k) = \sum_n \lambda_n^k$, up to the
+scalar ambiguity. Suppose that the top of the spectrum has the form
+$\lambda_n \approx \Lambda_r\, \nu^{-(n+\frac12)}$ with $|\Lambda_r| = e^{r\Vol/4\pi}$
+and $|\nu| = |\mu| > 1$, with phases aligned in this way (the phases are not in the
+data; see Section~\ref{sec:prior}), and that the rest of the spectrum does not
+contribute at leading order. Since
+\[
+\sum_{n \ge 0} \nu^{-k(n+\frac12)} = \frac{\nu^{-k/2}}{1 - \nu^{-k}}
+= \frac{1}{\nu^{k/2} - \nu^{-k/2}},
+\qquad
+\left|\nu^{k/2} - \nu^{-k/2}\right|^2 = \left|(1-\nu^k)(1-\nu^{-k})\right|,
+\]
+we would get
+\begin{equation}\label{eq:traceheur}
+\left|\Tr\rho_{r,c}(\varphi^k)\right| \approx
+\exp\!\Big(\frac{r}{4\pi}\, k\Vol(M_\varphi(\theta))\Big)\,
+\left|\det\big(1 - d\varphi^k|_T\big)\right|^{-1/2},
+\end{equation}
+using Lemma~\ref{lem:jac} for the eigenvalues $\mu^{\pm k}$ of $d\varphi^k|_T$ when
+$\nu = \mu$. The mapping torus of $\varphi^k$ is the $k$-fold cyclic cover
+$M_{\varphi^k}$ of $M_\varphi$; the fiber boundary lifts to the fiber boundary, so the
+cone structure lifts with the same angle and $\Vol(M_{\varphi^k}(\theta)) =
+k\Vol(M_\varphi(\theta))$. Thus, at the level of moduli and assuming phase
+alignment, the ladder implies a leading exponential term times a one-loop term of
+adjoint-torsion type for every cyclic cover $M_{\varphi^k}$ at once. The converse
+would need these trace asymptotics uniformly in $k$, which is not available; the
+generating function
+$\sum_k t^k \Tr\rho(\varphi^k) = \sum_n \lambda_n t/(1 - \lambda_n t)$ recovers the
+eigenvalues from the traces of all powers only formally.
+
+\subsection{Relation to the asymptotic expansion conjectures}
+Detcherry and Kalfagianni \cite[Thm.~2.3]{DK} show, for $r \ge 3$ odd, $\Sigma$
+compact oriented and $c$ a colouring of $\partial\Sigma$ by even integers in
+$\{0, 2, \dots, r-3\}$,
+$\Tr(\rho_{r,c}(f)) = RT_r(M_{\tilde f}, (L,c))$, where $\tilde f$ extends $f$ by the
+identity over disks capping the boundary of $\Sigma$, and $L$ is the link of cores of
+the solid tori over the capping disks, coloured by $c$. The complement of $L$ in
+$M_{\tilde f}$ is $M_f$. This is the $SO(3)$ theory. The theorem names no root of
+unity: in \cite[Section~2.2]{DK} the representation $\rho_{r,c}$ is defined for any
+primitive $2r$-th root of unity $\zeta_{2r}$, and Theorem~2.3 is stated in that
+setting, so it is not restricted to one root. Elsewhere \cite{DK} take
+$\zeta_{2r} = e^{i\pi/r}$ unless otherwise indicated (Section~1), and their
+Theorem~2.4 reads $TV_r(M, q = e^{2\pi i/r}) = \|RT_r(M, \zeta = e^{i\pi/r})\|^2$, so
+their $\zeta_{2r} = e^{i\pi/r}$ goes with $q = \zeta_{2r}^2 = e^{2\pi i/r}$. Our
+matrices use $q = e^{2\pi i/r}$ in the quantum integers, and their twists are those of
+\cite[5.8]{BHMV} at $A = e^{i\pi/r}$ (Section~\ref{sec:setup}). The framing of $L$ in
+\cite[Thm.~2.3]{DK} is not stated; it does not affect the moduli below.
+
+Wong and Yang \cite[Conj.~1.1]{WY2} conjecture, for $r$ odd and
+$q = e^{2\pi i/r}$, that the relative Reshetikhin-Turaev invariant of a closed
+manifold $M$ with a link $L$ coloured by $a$ satisfies
+\[
+RT_r(M, L, a) = C\,
+\frac{e^{\frac12\sum_k \mu_k H(\gamma_k)}}{\sqrt{\pm\mathrm{T}_{(M\setminus L,\,m)}}}\,
+e^{\frac{r}{4\pi}(\Vol + i\,CS)}\big(1 + O(1/r)\big),
+\]
+with $|C| = 1$, volume and Chern-Simons invariant of the cone manifold, and the adjoint
+torsion taken with respect to the meridians $m$ of the components of $L$. The cone
+angles at finite $r$ are $\theta_k = \mu_k(4\pi a_k/r - 2\pi) = |4\pi a_k/r - 2\pi|$,
+with $\mu_k = +1$ if $a_k > r/2$ and $\mu_k = -1$ if $a_k < r/2$
+\cite[Sections~1.1 and~3.2]{WY2}. In the first paper of the series \cite[Section~2.1,
+(3.1)]{WY1} the colours are Chebyshev indices (twice the spin), the $SO(3)$ colour set
+is $\{0, 2, \dots, r-3\}$, the quantum dimension of $n$ is $[n+1]$ and its twist is
+$q^{n(n+2)/2}$ with $A = e^{\pi i/r}$; this is our indexing, so their colour label is
+our $c$. Their angle $|2\pi - 4\pi c/r|$ \cite[Conj.~1.1]{WY1}, \cite{WY2} therefore
+differs from~\eqref{eq:theta} by $4\pi/r$. In the second paper \cite[Prop.~3.1,
+Sections~6 and~7.2]{WY1b}, for the figure-eight knot, the exact finite-$r$ parameter is
+$|2\pi - 4\pi(m_0+1)/r|$, with trivial prefactor in the leading term; this is
+exactly~\eqref{eq:theta}.
+
+The two forms agree. Here $\gamma_k$ is the parallel copy of the core of the $k$-th
+component given by the framing \cite[Section~1.1]{WY2}, and $H(\gamma_k)$ its
+logarithmic holonomy. The logarithmic holonomy of the meridian is
+$H(u_k) = \sqrt{-1}\,\theta_k$, purely imaginary, and that of a preferred longitude is
+$H(v_k) = -l_k + \iota_k\sqrt{-1}\,\theta_k/2$, with $l_k$ the length of the cone
+geodesic \cite[(3.2), (3.22), (3.29)]{WY2}. Since $\gamma_k$ differs from a longitude
+by a multiple of the meridian, $\mathrm{Re}\,H(\gamma_k) = -l_k$, and the modulus of
+the holonomy factor is $e^{-\frac12\sum_k \mu_k l_k}$. This is stated in \cite{WY2} in
+the case of their dichotomy that they treat explicitly; for the other case it is our
+inference. The following is our computation, not a statement in these sources. By the
+Schl\"afli formula $d\Vol/d\theta = -\ell/2$ with $\ell = l_k$, replacing the colour $a$
+by $a+1$ changes the angle by $\mu_k\cdot 4\pi/r$ and so changes $\frac{r}{4\pi}\Vol$ by
+$-\mu_k\ell/2 + O(1/r)$, which is exactly the logarithm of the modulus of the holonomy
+factor. Hence, written with the angle~\eqref{eq:theta} built from $c+1$, the conjecture reads
+\[
+|RT_r(M, L, c)| = e^{\frac{r}{4\pi}\Vol(\theta)}\,|\mathrm{T}_{(M\setminus L,\,m)}|^{-1/2}
+\big(1 + O(1/r)\big)
+\]
+with no separate holonomy factor, which must not be counted twice. This is the form
+used in \cite{WY1b}.
+
+For the link of \cite[Thm.~2.3]{DK}, the complement of $L$ in $M_{\tilde f}$ is $M_f$;
+each component of $L$ is the core of the solid torus over a capping disk, and its
+meridian is the boundary of that disk, which is the fiber boundary $\partial\Sigma$.
+So in our reading the torsion of \cite{WY2} is taken with respect to $\partial\Sigma$,
+the curve of~\eqref{eq:porti} \todo{confirm that the meridian of \cite{WY2} is
+$\partial\Sigma$ in the fibered setting}. Combining \cite[Thm.~2.3]{DK} with
+\cite[Conj.~1.1]{WY2} would then give, for each $k$,
+\[
+|\Tr\rho_{r,c}(\varphi^k)| \approx e^{\frac{r}{4\pi}k\Vol(M_\varphi(\theta))}
+\,|\mathrm{T}(M_{\varphi^k}, \partial\Sigma)|^{-1/2}
+\]
+with $\theta = \theta_{r,c}$ of~\eqref{eq:theta}. By~\eqref{eq:porti} applied to
+$\varphi^k$, $|\mathrm{T}(M_{\varphi^k}, \partial\Sigma)| = |\det(1 - d\varphi^k|_T)|$,
+which is what~\eqref{eq:traceheur} requires. Table~\ref{tab:torsion} checks this
+numerically for $LR$ and $k = 1$, and the exact computation of
+Section~\ref{sec:classical} for $LLR$ at $\theta = 0$. The chain uses one conjecture
+\cite{WY2}, our application of \cite[Prop.~5.9]{Porti} at the cone holonomy, our
+identification of the meridian of $L$ with $\partial\Sigma$, the inference for
+$\mathrm{Re}\,H(\gamma_k)$ in the second case of the dichotomy, and the match of our
+matrices with $\rho_{r,c}$, which is checked for $T_a$ but not for the sign in $S$
+when $c > 0$.
+
+\subsection{Normal form}\label{sec:normalform}
+Near a fixed point with multipliers $\mu, \mu^{-1}$ an area-preserving map has a
+Birkhoff normal form: in Darboux coordinates $(u,v)$ it is
+\[
+N(u,v) = \big(\mu u(1 + b\,uv + \cdots),\ \mu^{-1}v(1 - b\,uv + \cdots)\big),
+\]
+the time-one map of a Hamiltonian $H(I) = I\log\mu + \tfrac{b}{2} I^2 + \cdots$ with
+$I = uv$; the coefficient $b$ is the twist coefficient. In terms of
+$\Lambda(s) = \mu(1 + bs + \cdots)$ the map is $u' = \Lambda(uv)\,u$,
+$v' = \Lambda(uv)^{-1} v$. For real analytic area-preserving maps near a hyperbolic
+fixed point, the statement that the map is conjugate by a convergent area-preserving
+change of variables to this form, with $\Lambda$ analytic and $\Lambda(0) = \mu$, is
+due to Moser \cite{Moser}, as reproduced in \cite[Section~1]{GG}, which also notes that
+the change of variables is not unique but the function $\Lambda$ is determined by the
+map. For the complex case used here, with $\mu$ and $b$ complex, Gong
+\cite[p.~154]{Gong} attributes to Moser that a holomorphic symplectic map of $\C^2$
+is always normalisable by convergent transformations if $|\mu| \ne 1$; this covers the
+multipliers with $|\mu| > 1$ of $LLR$ \todo{\cite{Moser} itself was not read; the
+statement is taken from \cite{GG, Gong}}.
+
+The normalisation of $b$ depends on choices, by the following elementary remarks of
+ours. If the area form is multiplied by a constant $k$, Darboux coordinates are
+multiplied by $\sqrt k$, so $uv$ becomes $k\,uv$ and $\Lambda$ becomes
+$s \mapsto \Lambda(s/k)$: the multiplier is unchanged and $b$ becomes $b/k$. Rescalings
+$(u,v) \mapsto (au, v/a)$ do not change $\Lambda$. Exchanging the axes,
+$(u,v) \mapsto (v,-u)$, replaces $\Lambda(s)$ by $1/\Lambda(-s)$, which has multiplier
+$\mu^{-1}$; the convention $\Lambda(0) = \mu$ with $|\mu| > 1$ fixes the order. On the
+level surface $\kappa = -2\cos(\theta/2)$ we use the area form
+$\omega = dx\wedge dy/(2z - xy)$, for which the word map is area preserving at the
+geometric fixed point; there $\mu$ and $b$ are complex in general.
+
+A Bohr-Sommerfeld rule with $I$ quantised as $\hbar(n+\tfrac12)$ and
+$\hbar = 2\pi i/r$,
+\[
+\log\lambda_n = (\text{leading term}) - \frac{H(\hbar(n+\frac12))}{\hbar},
+\]
+gives $-(n+\tfrac12)\log\mu$ from the linear term and
+\[
+-\frac{b}{2}\,\hbar\left(n+\tfrac12\right)^2 = -\frac{\pi i\, b}{r}\left(n+\tfrac12\right)^2
+\]
+from the quadratic term, whose real part is $\pi\,\mathrm{Im}(b)\,(n+\tfrac12)^2/r$.
+This reproduces the shape $\alpha + \gamma(n+\frac12)^2$ of
+Observation~\ref{obs:subleading} and suggests $\gamma = \pi\,\mathrm{Im}(b)$. It does
+not explain $\alpha$, which stays open. A term $I^3$ in $H$ would contribute
+$\hbar^2(n+\frac12)^3$, that is order $r^{-2}$ with cubic dependence on $n$; see
+Remark~\ref{rem:cubic}.
+
+Rules of this kind are theorems in semiclassical analysis for real hyperbolic fixed
+points. Borns-Weil \cite[Thm.~1]{BW} shows for a quantised linear hyperbolic map (a
+metaplectic operator) composed with a cutoff that the spectrum near the hyperbolic
+fixed point is $\mu_k$ with $1/\mu_k = \lambda^{(2k+1)/2}$ up to a remainder that is
+small as $h \to 0$, that is, half-integer powers of the multiplier $\lambda$. Sj\"ostrand \cite[Thms.~2.3 and~3.3]{Sj} describes the
+resonances generated by a hyperbolic closed trajectory through a quantum Birkhoff
+normal form with quantum numbers $(k+\frac12)h$, and Iantchenko and Sj\"ostrand
+\cite[Thm.~3.2 and Section~4]{IS} show that the quantum Birkhoff normal form
+determines and is determined by such spectra. These results concern real hyperbolic
+fixed points of real symplectic maps and real $h$. Here the fixed point is a complex
+point of the trace map and $\hbar = 2\pi i/r$ is imaginary, so their use is an
+analytic-continuation heuristic, not a proof.
+
+\begin{observation}[Twist coefficient]\label{obs:twist}
+In all eight cases ($LR$ and $LLR$, $\theta_{\mathrm{nom}} = 0, 1, 2, 3$),
+\[
+\gamma = \pi\,\mathrm{Im}(b)
+\]
+at the precision of the fitted $\gamma$ (five digits); see Table~\ref{tab:twist}.
+Here $b$ is computed only from the trace map, as the normal-form coefficient at the
+geometric fixed point; $\gamma$ enters only the ratio column, and nothing is fitted to
+$\pi$. For $LR$ the computed $b$ is purely imaginary and $\mu$ is real; for $LLR$ both
+are complex. The sign of $\mathrm{Im}(b)$ depends on which of the two
+complex-conjugate geometric fixed points is taken; the convention is
+$\mathrm{Im}\,x > 0$. The coefficient $b$ scales inversely with the normalisation of
+the area form, so the constant $\pi$ is tied to the choice
+$\omega = dx\wedge dy/(2z - xy)$ together with $\hbar = 2\pi i/r$; the content of the
+observation is that one constant fits all eight cases. Since $b$ is purely imaginary
+for $LR$, only the four $LLR$ cases separate $\mathrm{Im}(b)$ from $|b|$; there
+$\gamma/|b|$ ranges from $2.70$ to $3.14$.
+\end{observation}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llccc}
+\toprule
+word & $\theta_{\mathrm{nom}}$ & $b$ & $\gamma$ & $\gamma/\mathrm{Im}(b)$ \\
+\midrule
+$LR$  & 0 & $0.439886\,i$ & 1.38195 & 3.141610 \\
+$LR$  & 1 & $0.353986\,i$ & 1.11209 & 3.141625 \\
+$LR$  & 2 & $0.197535\,i$ & 0.62057 & 3.141578 \\
+$LR$  & 3 & $0.083594\,i$ & 0.26262 & 3.141622 \\
+$LLR$ & 0 & $0.309746 + 0.522792\,i$ & 1.6424 & 3.141594 \\
+$LLR$ & 1 & $0.219484 + 0.516006\,i$ & 1.62109 & 3.141609 \\
+$LLR$ & 2 & $0.023537 + 0.421237\,i$ & 1.32337 & 3.141625 \\
+$LLR$ & 3 & $-0.089073 + 0.229063\,i$ & 0.71962 & 3.141577 \\
+\bottomrule
+\end{tabular}
+\caption{Twist coefficients. The values of $b$ are computed only from the trace map
+(Birkhoff normal form at the geometric fixed point) by
+\texttt{analysis/ladder\_tools.cpp}, subcommand \texttt{twist}; to reproduce, build
+that file and run the subcommand \texttt{twist}. They are not stored in
+\texttt{data/}. The column $\gamma$ is copied from
+\texttt{data/ladder\_subleading\_fits.csv}, lines 2--9, and enters only the ratio
+column. An independent recomputation in the chart $(y,z)$ with area form
+$dy\wedge dz/(2x - yz)$ and arbitrary eigenvector scalings gives the same $b$ to 15
+digits. The same tool refits $\alpha$ and $\gamma$ from the committed raw rows
+($r \in \{2001, 3001, 5001, 10001\}$) and reproduces the committed values within $3\cdot10^{-4}$
+($\alpha$) and $5\cdot10^{-5}$ ($\gamma$).}
+\label{tab:twist}
+\end{table}
+
+The same heuristic predicts the phases: $\arg\lambda_n$ should contain
+$-(n+\frac12)\arg\mu - \pi\,\mathrm{Re}(b)\,(n+\frac12)^2/r$, up to terms independent
+of $n$ and the conjugation convention. For $LR$ the $(n+\frac12)^2$ phase term
+vanishes; for $LLR$ it does not. The phases are not in the committed data, so this is
+an untested prediction.
+
+%======================================================================
+\section{Numerical method}\label{sec:method}
+%======================================================================
+
+The large-$r$ data come from the C program \texttt{solver/ladder3.c} (and its
+in-memory predecessor \texttt{ladder2.c}), written with FLINT ball arithmetic. We
+summarise \texttt{solver/README.md}, lines 35--91.
+
+\begin{enumerate}
+\item The tridiagonal loop operator $Y$ has real diagonal and off-diagonal entries
+that are real except for a few purely imaginary ones. A diagonal similarity
+$S = \operatorname{diag}(i^{e_i})$ makes it real, $Y' = S^{-1}YS$, with
+$J = S^2 = \operatorname{diag}(\pm1)$.
+\item Stage 1 (precision $d_1$). Each eigenvector $w_b$ of $Y'$ is computed by
+twisted factorisation in real arithmetic and discarded after use. Only rows $0$ and
+$d-1$ of $K = S^{-1}T_b^{-p}S = \sum_b \theta_b^{-p} w_b w_b^{T} J/(w_b^T J w_b)$ are
+accumulated, with $p = 1$ for $LR$ and $p = 2$ for $LLR$. The same sum with all
+$\theta_b = 1$ must give two rows of the identity; this is the self-check.
+\item Stage 2 (precision $d_2$). Since $K$ commutes with $Y'$, all rows of $K$ follow
+from rows $0$ and $d-1$ by a three-term recurrence run from both ends; the mismatch
+where the two sweeps meet is the self-check.
+\item Stage 3 (precision $d_3$). Block subspace iteration with $A' = K\Theta$, which
+is similar to $A$, on a block of $m = 12$ vectors, with Rayleigh-Ritz extraction of
+the top $8$ values of $\log|\lambda|$.
+\end{enumerate}
+
+The precisions are set by empirical laws per word and raised at run time when a
+self-check fails (\texttt{solver/README.md}, lines 67--79); for $LR$ at $\theta
+\approx 0$, $d_3$ is about $0.126r + 35$ digits.
+
+\subsection*{Limits}
+We state the limits of the data plainly.
+\begin{itemize}
+\item Only the words $LR$ and $LLR$ are implemented in the solver
+(\texttt{solver/ladder3.c}, \texttt{main}). Five further words were run only for
+$r \le 101$ and extrapolated (\texttt{data/stress\_7words\_r101.csv}); several of
+those extrapolations are unusable (for example line 5, column \texttt{d4}, and
+line 18), and we do not use that file as evidence.
+\item Only the moduli $\log|\lambda_n|$ are recorded. The Ritz values are complex,
+but the output sorts and prints only their logarithms, so the phases are lost.
+\item Convergence is a step-size test: the iteration stops when the top eight values
+of $\log|\lambda|$ change by less than $10^{-22}$ between iterations. It is not a
+residual bound. A failure to converge is reported on standard error only and is not
+marked in the data files.
+\item Validation (\texttt{solver/README.md}, lines 81--91) is by agreement to at
+least $28$ digits with an older solver at $r = 201, 1001, 2001$, and by reruns with
+raised precision at $r = 3001, 5001, 7001$. The reference outputs used there are not
+in the repository, and there is no $r = 7001$ data file.
+\item The data for $r = 201$ to $1001$ exist only as a summary with five to six
+digits (\texttt{data/r201-1001\_summary.txt}).
+\item The fits in \texttt{data/ladder\_subleading\_fits.csv} were produced by a
+script that was not kept; only the CSV is in the repository. For $j = 1, \dots, 8$
+the fitted quantity is
+\[
+E_j(r) = L_{j-1} - \frac{r\Vol(\theta)}{4\pi} + \left(j - \tfrac12\right)\log|\mu(\theta)|,
+\]
+where the file's $\log|\lambda_j|$ is our $L_{j-1}$, and $\Vol(\theta)$ (from SnapPy)
+and $\log|\mu(\theta)|$ (from the Jacobian of the trace map at the non-real fixed
+point) are evaluated at the exact $\theta = |2\pi - 4\pi(c+1)/r|$ of each row. For each
+case (word, $\theta_{\mathrm{nom}}$) the model is
+$rE_j = b_j + c_j/r + d_j/r^2 + s_j(\theta - \theta_{\mathrm{nom}})$ on the rows with
+$r \ge 500$, and $\alpha, \gamma$ are then fitted from $b_j = \alpha + \gamma(j-\frac12)^2$.
+The rows with $500 \le r \le 1001$ that enter this fit are not in the repository
+(see the previous item).
+\item Multi-threaded runs of \texttt{ladder3} were not tested.
+\end{itemize}
+
+The small-$r$ reference (\texttt{analysis/reference\_run.py}) computes full complex
+spectra at 120 digits from the matrices of Section~\ref{sec:setup}.
+
+%======================================================================
+\section{Evidence}\label{sec:evidence}
+%======================================================================
+
+All numbers in this section are copied from files in \texttt{data/} or obtained from
+them by the arithmetic shown. We write $L_n = \log|\lambda_n|$ ($n = 0,\dots,7$; the
+data files call these $\log|\lambda_1|,\dots,\log|\lambda_8|$). The gaps are
+\[
+\delta_n = L_n - L_{n+1}, \qquad n = 0, 1, 2, \dots,
+\]
+and the second differences are $\sigma_n = \delta_n - \delta_{n+1}$. In
+\texttt{data/r201-1001\_summary.txt} the columns \texttt{d1}, \dots, \texttt{d5} are
+$\delta_0, \dots, \delta_4$; in \texttt{data/extrap\_r121.csv} the columns
+\texttt{d0}, \dots, \texttt{d3} are extrapolations of $\delta_0, \dots, \delta_3$.
+
+\subsection{Leading term and first gap, $r \le 1001$}
+The summary file lists, at the exact $\theta$ of each row, $S - \Vol$ with
+$S = 4\pi L_0/r$, the gaps $\delta_0, \dots, \delta_4$, and $\log\mu$. The ladder
+predicts $S - \Vol \approx -2\pi\log\mu/r$ and $\delta_0 \approx \log\mu - 2\gamma/r$.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lrrcccc}
+\toprule
+word & $r$ & $\theta$ & $S - \Vol$ & $-2\pi\log\mu/r$ & $\delta_0$ & $\log\mu - 2\gamma/r$ \\
+\midrule
+$LR$  & 201  & 0.0313 & $-4.87\mathrm{e}{-2}$ & $-4.898\mathrm{e}{-2}$ & 1.55277 & \\
+$LR$  & 301  & 0.0209 & $-3.26\mathrm{e}{-2}$ & $-3.271\mathrm{e}{-2}$ & 1.55749 & \\
+$LR$  & 401  & 0.0157 & $-2.45\mathrm{e}{-2}$ & $-2.455\mathrm{e}{-2}$ & 1.55984 & \\
+$LR$  & 501  & 0.0125 & $-1.96\mathrm{e}{-2}$ & $-1.965\mathrm{e}{-2}$ & 1.56124 & \\
+$LR$  & 601  & 0.0105 & $-1.64\mathrm{e}{-2}$ & $-1.638\mathrm{e}{-2}$ & 1.56217 & \\
+$LR$  & 701  & 0.0090 & $-1.40\mathrm{e}{-2}$ & $-1.404\mathrm{e}{-2}$ & 1.56283 & \\
+$LR$  & 801  & 0.0078 & $-1.23\mathrm{e}{-2}$ & $-1.229\mathrm{e}{-2}$ & 1.56333 & \\
+$LR$  & 1001 & 0.0063 & $-9.82\mathrm{e}{-3}$ & $-9.835\mathrm{e}{-3}$ & 1.56403 & 1.56404 \\
+\midrule
+$LR$  & 1001 & 0.9980 & $-1.00\mathrm{e}{-2}$ & $-1.005\mathrm{e}{-2}$ & 1.59850 & 1.59851 \\
+$LR$  & 1001 & 2.0023 & $-1.06\mathrm{e}{-2}$ & $-1.056\mathrm{e}{-2}$ & 1.68064 & 1.68064 \\
+$LR$  & 1001 & 2.9941 & $-1.11\mathrm{e}{-2}$ & $-1.112\mathrm{e}{-2}$ & 1.77120 & 1.77120 \\
+$LLR$ & 1001 & 0.0063 & $-1.40\mathrm{e}{-2}$ & $-1.399\mathrm{e}{-2}$ & 2.22574 & 2.22575 \\
+$LLR$ & 1001 & 0.9980 & $-1.41\mathrm{e}{-2}$ & $-1.410\mathrm{e}{-2}$ & 2.24369 & 2.24370 \\
+$LLR$ & 1001 & 2.0023 & $-1.45\mathrm{e}{-2}$ & $-1.449\mathrm{e}{-2}$ & 2.30603 & 2.30604 \\
+$LLR$ & 1001 & 2.9941 & $-1.51\mathrm{e}{-2}$ & $-1.512\mathrm{e}{-2}$ & 2.40705 & 2.40705 \\
+\bottomrule
+\end{tabular}
+\caption{Columns $r$, $\theta$, $S-\Vol$, $\delta_0$ (\texttt{d1}) and the $\log\mu$
+used in columns 5 and 7 are copied from \texttt{data/r201-1001\_summary.txt},
+lines 2--9, 17, 25, 33, 41, 49, 57, 65. Column 5 is $-2\pi\log\mu/r$ with the
+printed $\log\mu$. Column 7 uses $\gamma$ at the nominal angle from
+\texttt{data/ladder\_subleading\_fits.csv}, lines 2--9.}
+\label{tab:summary}
+\end{table}
+
+At $r = 1001$ the first gap agrees with $\log\mu - 2\gamma/r$ to $10^{-5}$, the
+printed precision, in all eight cases. The leading term $S-\Vol$ agrees with
+$-2\pi\log\mu/r$ to the three printed digits at $r = 1001$; at $r = 201$ the
+difference is $3\cdot10^{-4}$, which is of order $r^{-2}$.
+
+\subsection{Second differences at $r = 10001$}
+Observation~\ref{obs:subleading} predicts
+$\delta_n = \log\mu - 2\gamma(n+1)/r + O(r^{-2})$ and $\sigma_n = 2\gamma/r + O(r^{-2})$,
+so $r\sigma_0/2 \to \gamma$ and $\delta_0 + 2\gamma/r \to \log\mu$. The leading term
+$r\Vol/4\pi$ cancels in the gaps because it does not depend on $n$. The check
+$r\sigma_0/2 \to \gamma$ needs neither $\Vol$ nor $\log\mu$; the gap check
+$\delta_0 + 2\gamma/r \to \log\mu$ uses $\log\mu$, here at the nominal angle.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llcccccc}
+\toprule
+word & $\theta$ & $\delta_0$ & $\delta_1$ & $r\sigma_0/2$ & $\gamma$ & $\delta_0 + 2\gamma/r$ & $\log\mu$ \\
+\midrule
+$LR$  & 0.00063 & 1.5665227658 & 1.5662460884 & 1.38352 & 1.38195 & 1.56680 & 1.5668 \\
+$LR$  & 0.99955 & 1.6006075147 & 1.6003849341 & 1.11301 & 1.11209 & 1.60083 & 1.60086 \\
+$LR$  & 1.99974 & 1.6815166821 & 1.6813926016 & 0.62046 & 0.62057 & 1.68164 & 1.68166 \\
+$LR$  & 2.99992 & 1.7721682946 & 1.7721158495 & 0.26225 & 0.26262 & 1.77222 & 1.77223 \\
+$LLR$ & 0.00063 & 2.2287046250 & 2.2283758320 & 1.64413 & 1.6424  & 2.22903 & 2.22903 \\
+$LLR$ & 0.99955 & 2.2466766905 & 2.2463520929 & 1.62315 & 1.62109 & 2.24700 & 2.24702 \\
+$LLR$ & 1.99974 & 2.3081973729 & 2.3079324298 & 1.32485 & 1.32337 & 2.30846 & 2.30848 \\
+$LLR$ & 2.99992 & 2.4089873013 & 2.4088434208 & 0.71947 & 0.71962 & 2.40913 & 2.40914 \\
+\bottomrule
+\end{tabular}
+\caption{$r = 10001$. $\delta_0, \delta_1$ are differences of the printed $L_0, L_1, L_2$ in
+\texttt{data/r10001\_raw.txt}, lines 1, 8, 7, 6, 5, 4, 3, 2 (in table order);
+$\theta$ is the fourth column there, rounded. $\gamma$ and $\log\mu$ (at the nominal
+angle $0,1,2,3$) are from \texttt{data/ladder\_subleading\_fits.csv}, lines 6--9 and
+2--5. The difference between the exact and nominal $\theta$ is below $7\cdot10^{-4}$,
+which moves $\log\mu$ by at most $3\cdot10^{-5}$ (column \texttt{dlogmu} of the same
+file).}
+\label{tab:r10001}
+\end{table}
+
+\subsection{Dependence on $r$}
+For $LR$ at $\theta \approx 0$ the same quantities at $r = 2001, 3001, 5001, 10001$
+are in Table~\ref{tab:rdep}. The difference $r\sigma_0/2 - \gamma$ decays like $1/r$:
+$r(r\sigma_0/2 - \gamma)$ is close to $15.8$ at all four values of $r$.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rcccc}
+\toprule
+$r$ & $\delta_0$ & $r\sigma_0/2$ & $r(r\sigma_0/2 - \gamma)$ & $\delta_0 + 2\gamma/r$ \\
+\midrule
+2001  & 1.5654152233 & 1.38988 & 15.86 & 1.56680 \\
+3001  & 1.5658770220 & 1.38723 & 15.84 & 1.56680 \\
+5001  & 1.5662461290 & 1.38511 & 15.80 & 1.56680 \\
+10001 & 1.5665227658 & 1.38352 & 15.75 & 1.56680 \\
+\bottomrule
+\end{tabular}
+\caption{Word $LR$, $c = (r-1)/2$. Differences of printed values from
+\texttt{data/r2001\_raw.txt}, line 1; \texttt{data/r3001-5001\_raw.txt}, lines 1
+and 9; \texttt{data/r10001\_raw.txt}, line 1. $\gamma = 1.38195$ from
+\texttt{data/ladder\_subleading\_fits.csv}, line 6. The uncertainty of the printed
+$\gamma$ moves column 4 by up to $0.05$ at $r = 10001$.}
+\label{tab:rdep}
+\end{table}
+
+\subsection{Dependence on $n$}
+At $r = 10001$, $LR$, $\theta \approx 0$, the values $r\sigma_n/2$ for
+$n = 0, \dots, 5$ are
+\[
+1.38352,\ 1.38458,\ 1.38564,\ 1.38670,\ 1.38776,\ 1.38882
+\]
+(differences of the eight printed values in \texttt{data/r10001\_raw.txt}, line 1).
+They are constant in $n$ up to a drift of $1.06\cdot10^{-3}$ per step, and
+$r(r\sigma_n/2 - \gamma) = 15.75, 26.32, 36.89, 47.48, 58.07, 68.68$.
+
+\begin{remark}\label{rem:cubic}
+The increments $10.57, 10.57, 10.59, 10.59, 10.61$ are nearly constant. A term
+$\varepsilon(n+\frac12)^3/r^2$ in $L_n$ contributes $3\varepsilon(n+\frac32)$ to
+$r(r\sigma_n/2-\gamma)$, which would give $\varepsilon \approx 3.53$ from the
+increments. The intercept at $n = 0$ does not test this: it also absorbs a term
+$(n+\frac12)^2/r^2$ in $L_n$ and the drift of $\theta = 2\pi/r$ with $r$. This is one
+case at one value of $r$; it is compatible with an $O(r^{-2})$ remainder that
+depends on $n$, and does not single out a cubic term.
+\end{remark}
+
+\subsection{Leading term at $r = 10001$}
+Here $\Vol$ at the exact $\theta = 6.2826\cdot10^{-4}$ is not in the data. We
+approximate it by $\Vol(0) + \frac12\Vol''(0)\theta^2$. We take $\Vol(0) =
+2.0298832128$ ($LR$) and $2.6667447834$ ($LLR$) from \texttt{data/extrap\_r121.csv},
+column \texttt{Vol}, lines 2 and 10, and $\Vol''(0)$ (column \texttt{d2Vol}) from
+\texttt{data/ladder\_subleading\_fits.csv}, lines 6 and 2. The rounded $\Vol$ of the
+fits file (five decimals) would leave an error of about $4\cdot10^{-3}$ in
+$r\Vol/4\pi$, too large for this check. The correction
+$\frac{r}{4\pi}\cdot\frac12\Vol''(0)\theta^2$ is $-2.3\cdot10^{-5}$ ($LR$) and
+$-2.6\cdot10^{-5}$ ($LLR$).
+With $L_0$ from \texttt{data/r10001\_raw.txt}, lines 1 and 5:
+\begin{align*}
+LR:\quad & L_0 - \tfrac{r}{4\pi}\Vol \approx 1614.707926 - 1615.491246 = -0.783320,\\
+& -\tfrac12\log\mu + \tfrac{\alpha + \gamma/4}{r} = -0.783400 + 0.000079 = -0.783321;\\
+LLR:\quad & L_0 - \tfrac{r}{4\pi}\Vol \approx 2121.225836 - 2122.340258 = -1.114422,\\
+& -\tfrac12\log\mu + \tfrac{\alpha + \gamma/4}{r} = -1.114515 + 0.000095 = -1.114420.
+\end{align*}
+The agreement is within the precision of the printed $\log\mu$.
+
+\subsection{The fitted constants}
+Table~\ref{tab:fits} reproduces the committed fits. The constants $b_j$ of the fit
+model satisfy $b_j \approx \alpha + \gamma(j-\frac12)^2$; for example for $LR$ at
+$\theta = 0$, $\alpha + \gamma/4 = 0.79170$ against $b_1 = 0.7917$, and
+$\alpha + 9\gamma/4 = 3.55560$ against $b_2 = 3.5556$. As a check of the definition of
+$E_j$, the raw row at $r = 10001$ for $LR$ (\texttt{data/r10001\_raw.txt}, line 1) gives
+$rE_j = 0.7918, 3.557, 9.089, 17.391$ for $j = 1, \dots, 4$ against
+$\alpha + \gamma(j-\frac12)^2 = 0.7917, 3.556, 9.083, 17.375$; the higher rungs differ
+more, as expected from the terms $c_j/r$ and $d_j/r^2$ of the fit. The committed
+constants come from the model $rE_j = b_j + c_j/r + d_j/r^2 + s_j(\theta -
+\theta_{\mathrm{nom}})$ on the rows with $r \ge 500$ (Section~\ref{sec:method}). The
+tool \texttt{analysis/ladder\_tools.cpp} refits with the model $b_n + c_n/r + s_n(\theta
+- \theta_{\mathrm{nom}})$, without a $1/r^2$ term, on $r = 2001, 3001, 5001, 10001$
+only, and reproduces $\alpha$ within $3\cdot10^{-4}$ and $\gamma$ within
+$5\cdot10^{-5}$.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llcccc}
+\toprule
+word & $\theta_{\mathrm{nom}}$ & $\alpha$ & $\gamma$ & $\log\mu$ & $\Vol$ \\
+\midrule
+$LR$  & 0 & 0.44621 & 1.38195 & 1.5668  & 2.02988 \\
+$LR$  & 1 & 0.39445 & 1.11209 & 1.60086 & 1.95868 \\
+$LR$  & 2 & 0.2898  & 0.62057 & 1.68166 & 1.75544 \\
+$LR$  & 3 & 0.1936  & 0.26262 & 1.77223 & 1.44451 \\
+$LLR$ & 0 & 0.53593 & 1.6424  & 2.22903 & 2.66674 \\
+$LLR$ & 1 & 0.52818 & 1.62109 & 2.24702 & 2.58421 \\
+$LLR$ & 2 & 0.4665  & 1.32337 & 2.30848 & 2.33941 \\
+$LLR$ & 3 & 0.33714 & 0.71962 & 2.40914 & 1.94573 \\
+\bottomrule
+\end{tabular}
+\caption{Copied from \texttt{data/ladder\_subleading\_fits.csv}, lines 2--9. The fit
+uses $r \ge 500$; the fitting script is not in the repository.}
+\label{tab:fits}
+\end{table}
+
+\subsection{A grid of angles at small $r$}
+The file \texttt{data/extrap\_r121.csv} gives, on a grid of angles, extrapolations
+from the data with $r \le 121$, made by a script (\texttt{analyze\_hi.py}) that is not
+in the repository. Its columns are as follows.
+\begin{description}
+\item[\texttt{word}, \texttt{theta}] The case; $\theta$ is a fixed grid value, and
+each quantity is interpolated in $\theta$ at every $r$.
+\item[\texttt{Vol}] From SnapPy: the complete structure of \texttt{m004} ($LR$) or
+\texttt{m009} ($LLR$) at $\theta = 0$, otherwise the generalised Dehn filling with
+coefficient $k$ times the slope $(0,1)$ (\texttt{m004}) or $(1,1)$ (\texttt{m009}),
+$k = 2\pi/\theta$, with $\theta$ rounded to 6 digits. Since this column does not come
+from \texttt{analysis/ladder\_tools.cpp}, its agreement with the tetrahedron formula
+of that tool (16 values, largest difference $5\cdot10^{-11}$) is an independent check
+of that formula.
+\item[\texttt{S}] The extrapolated limit of $4\pi L_0/r$.
+\item[\texttt{d0}, \dots, \texttt{d3}] The extrapolated limits of
+$\delta_0, \dots, \delta_3$ (the file's 0-based rungs are our $L_n$).
+\item[\texttt{curv}, \texttt{dd1}] $\texttt{d0} - \texttt{d1}$ and
+$\texttt{d1} - \texttt{d2}$, that is, $\sigma_0$ and $\sigma_1$ in the limit.
+\item[\texttt{S\_minus\_Vol}] $\texttt{S} - \texttt{Vol}$.
+\item[\texttt{X\_err}, \texttt{X\_r}] For each value column \texttt{X}, the value is
+the median over 12 extrapolation variants (2 interpolation settings times 6 fit
+models: power series in $1/r$ to order 2 or 3, with minimum $r$ equal to 47, 61 or
+81), \texttt{X\_err} is half the spread (maximum minus minimum) over these variants,
+and \texttt{X\_r} is the interpolated value at the largest $r$ from the last variant
+(finite $r$, not extrapolated); \texttt{X\_r} is blank at $\theta = 0$, where the
+interpolation does not apply.
+\end{description}
+Table~\ref{tab:grid} shows that $S$ agrees with $\Vol$ to within
+$2\cdot10^{-5}$ on the whole grid, and the extrapolated $\delta_0$ agrees with
+$\log\mu$ of Table~\ref{tab:fits} at $\theta = 0,1,2,3$ within its stated error.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llccccc}
+\toprule
+word & $\theta$ & $\Vol$ & $S$ & err($S$) & $\delta_0$ & err($\delta_0$) \\
+\midrule
+$LR$  & 0    & 2.029883 & 2.029883 & 4.0e-6 & 1.566782 & 2.1e-5 \\
+$LR$  & 0.25 & 2.025377 & 2.025385 & 1.7e-5 & 1.569015 & 8.4e-5 \\
+$LR$  & 0.5  & 2.011903 & 2.011910 & 5.4e-5 & 1.575719 & 1.4e-4 \\
+$LR$  & 1    & 1.958684 & 1.958686 & 1.5e-5 & 1.600913 & 1.1e-4 \\
+$LR$  & 1.5  & 1.872230 & 1.872223 & 2.1e-5 & 1.637928 & 1.4e-4 \\
+$LR$  & 2    & 1.755439 & 1.755431 & 2.0e-5 & 1.681723 & 1.1e-4 \\
+$LR$  & 2.5  & 1.611689 & 1.611679 & 2.1e-5 & 1.727649 & 7.5e-5 \\
+$LR$  & 3    & 1.444513 & 1.444501 & 1.6e-5 & 1.772267 & 3.9e-5 \\
+$LLR$ & 0    & 2.666745 & 2.666746 & 7.7e-8 & 2.229020 & 1.9e-5 \\
+$LLR$ & 0.25 & 2.661578 & 2.661580 & 4.1e-6 & 2.230092 & 1.4e-5 \\
+$LLR$ & 0.5  & 2.646083 & 2.646089 & 1.0e-5 & 2.233272 & 9.2e-5 \\
+$LLR$ & 1    & 2.584213 & 2.584224 & 2.1e-5 & 2.246918 & 2.2e-4 \\
+$LLR$ & 1.5  & 2.481609 & 2.481618 & 1.5e-5 & 2.271683 & 1.7e-4 \\
+$LLR$ & 2    & 2.339413 & 2.339414 & 1.7e-5 & 2.308502 & 1.6e-4 \\
+$LLR$ & 2.5  & 2.159736 & 2.159726 & 2.3e-5 & 2.355712 & 3.0e-4 \\
+$LLR$ & 3    & 1.945728 & 1.945714 & 2.7e-5 & 2.409254 & 1.6e-4 \\
+\bottomrule
+\end{tabular}
+\caption{Copied, rounded, from \texttt{data/extrap\_r121.csv}, lines 2--17
+(columns \texttt{Vol}, \texttt{S}, \texttt{S\_err}, \texttt{d0}, \texttt{d0\_err}).}
+\label{tab:grid}
+\end{table}
+
+%======================================================================
+\section{Relation to prior work and open problems}\label{sec:prior}
+%======================================================================
+
+\subsection{Traces and volume conjectures}
+Chen and Yang \cite{CY} proposed that Reshetikhin-Turaev and Turaev-Viro invariants
+at $e^{2\pi i/r}$ grow exponentially with rates given by the complex volume and the
+volume. Detcherry and Kalfagianni \cite{DK} relate the AMU conjecture to the growth of
+Turaev-Viro invariants: in the proof of their Theorem~1.2 they use
+$TV_r(M_f) = \sum_c |\Tr\rho_{r,c}(f)|^2$, with Turaev-Viro invariants at
+$q = e^{2\pi i/r}$ and the representations at $\zeta_{2r} = e^{i\pi/r}$, and
+\cite[Thm.~2.3]{DK} identifies each trace with a relative Reshetikhin-Turaev
+invariant. Wong and Yang \cite{WY1} proposed a volume conjecture for relative
+Reshetikhin-Turaev invariants in which the cone angles come from the colouring,
+treated the figure-eight knot in \cite{WY1b}, and in \cite{WY2} proposed asymptotic expansion conjectures whose leading coefficients
+involve adjoint twisted Reidemeister torsion. Section~\ref{sec:heuristic} explains
+how the ladder, with aligned phases, would be consistent with these conjectures for
+all cyclic covers of $M_\varphi$.
+
+\subsection{The Bonahon-Wong-Yang invariants}
+Bonahon, Wong and Yang \cite{BWY1} work with the Kauffman bracket skein algebra at a
+primitive $n$-th root of unity $q$, $n$ odd. Its irreducible representations are
+classified by a classical shadow, which is a character, and by puncture weights $p_v$
+with $T_n(p_v) = -\Tr r(\gamma_v)$ \cite[Thms.~2 and~3]{BWY1}; for the one-holed torus
+they have dimension $n$. A diffeomorphism $\varphi$ gives an
+intertwiner $\Lambda$, defined up to conjugation and a scalar of modulus $1$ and
+normalised by $|\det\Lambda| = 1$, so that only $|\Tr\Lambda|$ is an invariant. They
+conjecture $\lim \frac1n\log|\Tr\Lambda| = \Vol(M_\varphi)/4\pi$ with the puncture
+weights fixed independently of $n$, and prove it for $LR$, with two limit modes
+according to $n$ mod $4$ \cite[Thm.~19 and Cor.~20]{BWY2}. Pandey and Wong \cite{PW}
+take $q = e^{2\pi i/n}$ and puncture weights $p_v = e^{(h_v + 2\pi i m_v)/n} +
+e^{-(h_v + 2\pi i m_v)/n}$ that scale with $n$, with cone angle
+$\theta_v = |\lim 4\pi m_v/n|$ around $\partial\Sigma$; this matches our regime of $c$
+proportional to $r$. For $LR$ and every angle in $[0,2\pi)$ they prove
+\cite[Thm.~1.3 and Cor.~1.4]{PW}
+\[
+|\Tr\Lambda| = C(n)\,
+\frac{e^{\frac{n}{4\pi}\Vol(M_{\varphi,\theta^{(n)}})}}{|\sqrt{\mathrm{Tor}(M_\varphi,\mu_v,\rho_\theta)}|}
+\big(1 + O(1/n)\big),
+\]
+with $C(n)$ bounded; it is not shown to converge and depends on $n$ mod $4$. They
+compare with relative Reshetikhin-Turaev invariants by analogy, the colours
+corresponding to $m_v$, but do not identify the intertwiner with a quantum
+representation. Garoufalidis and Yu \cite[Conj.~1.1, (3), and Thm.~1.2]{GY} identify
+the Bonahon-Wong-Yang invariant with a $1$-loop type invariant
+$\mathrm{tr}(H)/\det(H)^{1/n}$ \cite[Def.~3.5, (59)]{GY} for all pseudo-Anosov maps of
+the once-punctured torus, at the complete structure only; the asymptotics there are
+numerical \cite[(5)]{GY}, with a bimodal factor $\frac{1}{\sqrt2}(1 \mp
+\frac{1}{\sqrt3})$ for $LR$. They use the fiber boundary as the canonical longitude,
+and their values $\tau_{LR}(1)$, $\tau_{LLR}(1)$ match $|\det(1-A)|^{-1/2}$ at
+$\theta = 0$ (Section~\ref{sec:classical}).
+
+None of \cite{BWY1, BWY2, PW, GY} identifies the intertwiner with
+$\rho_{r,c}(\varphi)$; \cite{BWY1, BWY2} do not mention the Witten-Reshetikhin-Turaev
+representations, and \cite{PW, GY} mention them only as an analogy. No paper among
+these makes a statement about eigenvalues of the intertwiner. The intertwiner is a
+different object from $\rho_{r,c}(\varphi)$, and no identification is known to us. Its
+trace asymptotics involve the same two classical ingredients as
+Section~\ref{sec:heuristic}: the volume of the cone structure and the torsion with
+respect to $\partial\Sigma$. Since $C(n)$ oscillates with $n$ mod $4$, a ladder
+statement for the intertwiner, if one holds, would concern the moduli of its
+eigenvalues, and recovering the trace from it would need their phases.
+
+\subsection{Torsion}
+Porti \cite[Prop.~5.9]{Porti} and Dubois \cite{Dub} describe the torsion of a
+fibered manifold with respect to the fiber boundary through the tangent map of the
+monodromy on the character variety of the fiber, for general characters; Porti gives
+the closed form for the figure-eight knot \cite[(46)--(50)]{Porti}. Dunfield,
+Garoufalidis and Yoon \cite{DGY} prove that the $1$-loop invariants equal the torsion
+polynomials for layered triangulations of fibered $3$-manifolds with toroidal
+boundary, in the boundary-parabolic case. Yoon \cite{Yoon} proves that the twisted
+$1$-loop invariant equals the adjoint twisted Alexander polynomial for all hyperbolic
+once-punctured torus bundles, at the complete structure. Section~\ref{sec:classical}
+explains how these give $|\mathrm{T}(M_{\varphi^k},\partial\Sigma)| = |\det(1 -
+d\varphi^k|_T)|$, which Section~\ref{sec:heuristic} needs; for $\theta > 0$ this rests
+on \cite{Porti, Dub} and on our assumption that the cone holonomy is a generic
+character in their sense.
+
+\subsection{Eigenvalues of quantum representations}
+To our knowledge no eigenvalue ladder, and no growth rate of the spectral radius of
+$\rho_{r,c}(\varphi)$, has been stated before. We read for this purpose
+\cite{AMU, San, AP, Cha, MP, BCGP, DK, DK2, BDKY}; what they contain on eigenvalues is
+the following.
+
+Andersen, Masbaum and Ueno \cite{AMU} work on the four-holed sphere at roots with
+$A_k^2 \to -i$, a non-unitary Galois conjugate \cite[Remark~5.2]{AMU}. They show
+\cite[Thm.~5.3, Cor.~1.3 and~5.8]{AMU} that there is a unique eigenvalue with
+$|\lambda_k| > 1$ and that $\lim|\lambda_k|$ is the stretch factor. This concerns
+bounded eigenvalues and the top one only. The spacing $\log|\mu|$ of the ladder is not
+the logarithm of the stretch factor (for $LR$ the stretch factor is $(3+\sqrt5)/2$,
+with logarithm $0.9624$, while $\log\mu = 1.5668$).
+
+Santharoubane \cite{San} takes $A_p = -e^{i\pi/p}$ and the colour
+$c_p = (p-1)/2 - N$ with fixed dimension $N$. The limit is the representation $h_N$,
+the symmetric power $\mathrm{Sym}^{N-1}$ of the standard representation of
+$SL_2(\Z)$; this gives the AMU conjecture for the one-holed torus \cite[Thm.~2]{San},
+and \cite[Section~3.2]{San} exhibits the eigenvalue $\lambda^{N-1}$. We note, as our
+inference, that $\mathrm{Sym}^{N-1}$ has the eigenvalues $\lambda^{N-1-2j}$,
+$j = 0, \dots, N-1$, a finite ladder with ratio $\lambda^2$, in the opposite corner of
+the colour range: $c/p \to \frac12$, that is $\theta \to 0$ in our notation, but at
+fixed dimension rather than with $d_{r,c}$ growing linearly.
+
+Andersen and Petersen \cite[Thms.~1.1--1.3]{AP} give asymptotic expansions of the
+Witten-Reshetikhin-Turaev invariants of mapping tori in the unitary setting, with
+polynomial growth, and make no statement on eigenvalues. Charles \cite[Thms.~2.5
+and~2.6]{Cha}, also in the unitary setting, shows that the trace of the $k$-th power
+is asymptotically a sum over fixed points of terms
+$e^{i\pi m/2} u^k/|\det(\mathrm{id} - L(\varphi,x))|^{1/2}$; the companion paper
+\cite[Thms.~1.1 and~9.8]{Cha2} treats genus $1$. Summing the geometric series as in
+Section~\ref{sec:heuristic}, $\sum_{n\ge0}\mu^{-(n+\frac12)} =
+1/(\mu^{1/2} - \mu^{-1/2})$, of modulus $|\det(1-A)|^{-1/2}$, shows that the ladder
+reproduces an amplitude of this form; this is our remark. March\'e and Paul \cite{MP}
+work at the unitary root $A = -e^{i\pi/(2r)}$ and describe curve operators as Toeplitz
+operators.
+
+Blanchet, Costantino, Geer and Patureau-Mirand \cite[Questions~1.7(2) and~6.14]{BCGP}
+ask, for their non semi-simple TQFT, how the spectral radius of the image of a
+pseudo-Anosov class grows and whether the spectrum relates to the dilatation or to
+the volume of the mapping torus; the questions are not answered there.
+Conjecture~\ref{conj:ladder} is an answer of that type for the $SO(3)$ theory at
+$q = e^{2\pi i/r}$. Detcherry and Kalfagianni \cite[Conj.~1.3, Thms.~1.1 and~1.4,
+Cor.~1.6]{DK2} and Belletti, Detcherry, Kalfagianni and Yang \cite[Thms.~1.2
+and~1.4]{BDKY} concern the growth of traces and of Turaev-Viro invariants only.
+
+The search (November 2026) also used web and arXiv searches on eigenvalue and
+spectral-radius asymptotics of quantum representations of pseudo-Anosov classes, the
+AMU conjecture, Turaev-Viro invariants of mapping tori, Toeplitz-operator methods, and
+quantisations of the trace map with Bohr-Sommerfeld rules
+\todo{later work citing \cite{AMU, San, BCGP} not checked systematically}.
+
+The AMU conjecture as stated in \cite[Conj.~1.1]{DK} asks for infinite order of
+$\rho_{r,c}(\varphi)$ for some colour. An eigenvalue of modulus different from $1$
+gives infinite order. Our data show $|\lambda_0| > 1$ in all computed cases, but the
+computation is not certified, so we draw no conclusion from it.
+
+\subsection{Open problems}
+\begin{enumerate}
+\item Prove Conjecture~\ref{conj:ladder}, first for $n = 0$ and for $LR$, where the
+cone structures and torsion are explicit \cite{PW, Porti}.
+\item Closed forms for $\alpha$ and $\gamma$. For $\gamma$ see
+Observation~\ref{obs:twist}; $\alpha$ is open. A natural guess is a two-loop
+invariant of the cone manifold.
+\item Phases. \textbf{PENDING}: the phases of the eigenvalues are not in the data.
+Section~\ref{sec:normalform} predicts $\arg\lambda_n$ up to $n$-independent terms;
+the leading phase should be related to $r\,CS/4\pi$.
+\item More words. \textbf{PENDING}: words other than $LR$ and $LLR$ at large $r$.
+\item Higher genus. On a surface whose relative character variety has dimension
+$2m$, the same heuristic suggests eigenvalue moduli indexed by $(n_1,\dots,n_m)$ with
+$\sum_i (n_i + \frac12)\log|\mu_i|$ in place of $(n+\frac12)\log|\mu|$. This is a
+speculation, not tested.
+\item Certified computation: residual bounds per eigenvalue instead of the step-size
+test.
+\end{enumerate}
+
+\bibliographystyle{amsplain}
+\bibliography{refs}
+
+\end{document}
