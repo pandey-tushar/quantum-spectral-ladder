@@ -1,0 +1,22 @@
+# build outputs
+ladder2
+ladder3
+*.o
+*.out
+*.log
+# solver scratch/checkpoints
+scratch/
+scr*/
+*.ck
+*.state
+*.bin
+# python
+__pycache__/
+*.pyc
+*.pkl
+.ipynb_checkpoints/
+analysis/analysis_out.txt
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
