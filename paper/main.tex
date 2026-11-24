@@ -53,7 +53,20 @@ We state the first two terms as a conjecture and the $1/r$ term as a numerical
 observation. In all eight cases the fitted constant $\gamma$ equals
 $\pi\,\mathrm{Im}(b)$, where $b$ is the Birkhoff twist coefficient of the trace map
 at the geometric fixed point, computed from the trace map alone; the ratio
-$\gamma/\mathrm{Im}(b)$ lies between $3.141577$ and $3.141625$. We give a heuristic
+$\gamma/\mathrm{Im}(b)$ lies between $3.141577$ and $3.141625$. A direct test on the
+raw rows, which uses neither the stored fit nor a fitted dependence on $\theta$,
+extrapolates $\gamma - \pi\,\mathrm{Im}(b)$ in $r$, for the fit over the first eight
+levels, to below $2\cdot10^{-5}$ times
+$\pi\,\mathrm{Im}(b)$ in absolute value in seven cases and below $8\cdot10^{-5}$ times
+$\pi\,\mathrm{Im}(b)$ in the eighth. For five
+further words, extrapolations from $r \le 101$ agree with the leading term and the
+first two gaps; for these words we give $\pi\,\mathrm{Im}(b)$ as an untested
+prediction of $\gamma$. At order $r^{-2}$ the coefficient of $(n+\frac12)^3$ is
+predicted with no free parameter from the next Birkhoff coefficient, and extrapolated
+third differences of the raw rows agree with it to $3.3\cdot10^{-6}$ relative at
+$\theta \approx 0$ and to $2.1\cdot10^{-4}$ in the five other cases with four values of
+$r$; at $\theta \approx 0$ the constant $\alpha$ has conjectural closed forms for both
+words, with fitted rationals. We give a heuristic
 that relates the ladder to the trace of $\rho_{r,c}(\varphi^k)$ for all $k$ and to the
 Birkhoff normal form. All evidence in this paper is numerical; nothing here is
 proved.
@@ -93,7 +106,11 @@ of $\log|\mu|$ is the standard semiclassical picture at a hyperbolic fixed point
 moduli, the next term in $1/r$, and numerical evidence for both; and the empirical
 identification $\gamma = \pi\,\mathrm{Im}(b)$ of the coefficient of
 $(n+\frac12)^2/r$ with the Birkhoff twist coefficient of the trace map
-(Observation~\ref{obs:gamma}).
+(Observation~\ref{obs:gamma}). At order $r^{-2}$ we predict the coefficient of
+$(n+\frac12)^3/r^2$ from the next coefficient of the same normal form, with no free
+parameter, and test it on the raw rows (Observation~\ref{obs:cubic}). At $\theta = 0$
+we give conjectural closed forms for $\alpha$ for $LR$ and $LLR$, in which the
+rationals are fitted (Observation~\ref{obs:alpha0}).
 
 \subsection{The cone angle}
 To a pair $(r,c)$ we associate
@@ -215,7 +232,9 @@ $r = 5001$ and $r = 10001$, and all other rows with $r \le 1001$, have $c < r/2$
 $\theta \le 3$ is supported only numerically, by the SnapPy volumes of
 Section~\ref{sec:classical}; for $LR$ it is proved in \cite[Lemma~4.1]{PW}.
 (c) The geometric fixed point and its complex conjugate give the same $|\mu|$, so
-the choice between them does not affect the moduli in the conjecture.
+the choice between them does not affect the moduli in the conjecture. It does affect
+the sign of $\mathrm{Im}(b)$ in Observation~\ref{obs:gamma}; there the point is fixed by
+rule~S of Section~\ref{sec:normalform}.
 (d) The conjecture is stated for all $\theta_\infty \in [0, 2\pi)$ subject to the
 hypothesis. The evidence covers only $\theta \le 3$: the nominal
 angles $0, 1, 2, 3$ at large $r$, and the grid of Table~\ref{tab:grid} at
@@ -224,8 +243,10 @@ $c/r \to 1$, which includes bounded colours, is untested.
 \end{remark}
 
 The evidence (Section~\ref{sec:evidence}) covers $\varphi \in \{LR, LLR\}$,
-$\theta_\infty \in \{0, 1, 2, 3\}$, $n \le 7$ and $r \le 10001$. For other words the
-data stop at $r = 101$ (Section~\ref{sec:method}).
+$\theta_\infty \in \{0, 1, 2, 3\}$, $n \le 7$ and $r \le 10001$. For five further
+words the data stop at $r = 101$ (Section~\ref{sec:method}); extrapolations from there
+support the leading term and the first two gaps at $\theta = 0, 1, 2, 3$
+(Section~\ref{sec:fivewords}), and say nothing about the term of order $1/r$.
 
 \begin{observation}\label{obs:subleading}
 In the same cases, for each fixed $n$, the remainder is of order $1/r$ with an explicit
@@ -241,13 +262,17 @@ Table~\ref{tab:fits}. The remainder is not uniform in $n$: at $r = 10001$ for $L
 $\theta \approx 0$, the quantity $r(r\sigma_n/2 - \gamma)$ (with $\sigma_n$ the
 second differences of Section~\ref{sec:evidence}), which a remainder $O(r^{-2})$
 uniform in $n$ would bound independently of $n$, grows by about $10.6$ per step, from
-$15.75$ at $n = 0$ to $68.68$ at $n = 5$ (Remark~\ref{rem:cubic}).
+$15.75$ at $n = 0$ to $68.68$ at $n = 5$ (Remark~\ref{rem:cubic}); the growth is
+accounted for by a term of order $r^{-2}$ cubic in $n+\frac12$
+(Observation~\ref{obs:cubic}).
 \end{observation}
 
 Observation~\ref{obs:subleading} is stated as an observation, not as part of the
 conjecture, because $\alpha$ and $\gamma$ are fitted numbers and the fitting script
-is not part of the companion repository (Section~\ref{sec:method}). The constant
-$\alpha$ has no proposed closed form. The constant $\gamma$ is identified numerically
+is not part of the companion repository (Section~\ref{sec:method}). For
+$\theta_\infty \ne 0$ the constant $\alpha$ has no proposed closed form; for
+$\theta_\infty = 0$ Observation~\ref{obs:alpha0} below gives conjectural closed forms
+for the two words. The constant $\gamma$ is identified numerically
 with a coefficient computed from the trace map alone:
 
 \begin{observation}[see Observation~\ref{obs:twist}]\label{obs:gamma}
@@ -255,11 +280,26 @@ In the eight cases of Observation~\ref{obs:subleading},
 $\gamma = \pi\,\mathrm{Im}(b)$ to the five digits of the fitted $\gamma$, where $b$ is
 the Birkhoff twist coefficient of the trace map of $\varphi$ at the geometric fixed
 point, with the normalisations fixed in Section~\ref{sec:normalform}; the ratio
-$\gamma/\mathrm{Im}(b)$ lies between $3.141577$ and $3.141625$.
+$\gamma/\mathrm{Im}(b)$ lies between $3.141577$ and $3.141625$. A direct test on the
+raw rows at $r \ge 2001$, which does not use the fitted $\gamma$, extrapolates the
+difference $\gamma - \pi\,\mathrm{Im}(b)$ in $r$; the extrapolated value, for the fit over the levels $n = 0, \dots, 7$, is at most
+$1.7\cdot10^{-5}$ times $\pi\,\mathrm{Im}(b)$ in absolute value in seven cases, and at
+most $7.7\cdot10^{-5}$ times $\pi\,\mathrm{Im}(b)$ for $LLR$, $\theta \approx 3$,
+which has one row fewer (Section~\ref{sec:robust}).
 \end{observation}
 
 The definition of $b$, the values, and the heuristic that suggests this relation are in
 Section~\ref{sec:normalform} (Table~\ref{tab:twist}).
+
+The same normal form predicts the next order. With $c$ the coefficient of $I^3/3$ in
+the normal-form Hamiltonian (Section~\ref{sec:normalform}), $L_n = \log|\lambda_n|$
+should contain $\delta_3 (n+\frac12)^3/r^2$ with $\delta_3 = \frac{4\pi^2}{3}
+\mathrm{Re}(c)$. Observation~\ref{obs:cubic} (Section~\ref{sec:order2}) confirms this
+on the raw rows, finds no term $(n+\frac12)^2/r^2$, and at $\theta \approx 0$ finds the
+whole term of order $r^{-2}$ to be odd in $n+\frac12$. At $\theta = 0$,
+Observation~\ref{obs:alpha0} (Section~\ref{sec:alpha0}) gives a combination $S_2$ of
+$\alpha$, $b$ and $\mu$ as a rational multiple of $\pi/\sqrt3$ for $LR$ and of
+$\pi/\sqrt7$ for $LLR$, and hence $\alpha$; the rationals were read off from the data.
 
 \begin{remark}
 The ladder can only describe the top of the spectrum. By~\eqref{eq:theta},
@@ -272,7 +312,9 @@ linearly in $r$, while the statement is for fixed $n$ as $r \to \infty$.
 Section~\ref{sec:setup} defines the matrices. Section~\ref{sec:classical} describes
 the classical quantities $\Vol$ and $\mu$. Section~\ref{sec:heuristic} gives a
 heuristic for the ladder. Section~\ref{sec:method} describes the numerical method and
-its limits, and Section~\ref{sec:evidence} the evidence. Section~\ref{sec:prior}
+its limits, and Section~\ref{sec:evidence} the evidence, including the order
+$r^{-2}$ (Section~\ref{sec:order2}) and the constant $\alpha$ at $\theta = 0$
+(Section~\ref{sec:alpha0}). Section~\ref{sec:prior}
 discusses prior work and open problems. Appendix~\ref{app:sources} records the data
 files, the tools that produced each number, and which sources were read in which
 version.
@@ -515,8 +557,11 @@ geometric fixed point by the following rule: among the non-real fixed points of 
 word map on the level surface, it is the one of maximal volume, where the volume is
 computed from one ideal tetrahedron per letter of the word, as the absolute value of
 a sum of Bloch-Wigner dilogarithms of their shapes. The two points of a
-complex-conjugate pair have the same volume; of these the one with
-$\mathrm{Im}\,x > 0$ is taken. At $\theta = 0$ this volume equals the hyperbolic
+complex-conjugate pair have the same volume, the same $|\mu|$ and the same moduli
+predicted by Conjecture~\ref{conj:ladder}; for these the tool takes the one with
+$\mathrm{Im}\,x > 0$. For the twist coefficient the choice matters, and there the
+point is fixed by rule~S of Section~\ref{sec:normalform}, which for $LR$ and $LLR$
+selects the same point. At $\theta = 0$ this volume equals the hyperbolic
 volumes $2.0298832128$ of the figure-eight knot complement ($LR$) and $2.6667447834$
 ($LLR$), and in all eight cases the same point also has the largest $|\mu|$ among the
 non-real fixed points, so the rule agrees with the earlier rule of largest $|\mu|$
@@ -777,6 +822,38 @@ The phase alignment assumed here is untested. The large-$r$ data contain no phas
 spectra, but the comparison of $\Tr\rho_{r,c}(\varphi^k)$ with~\eqref{eq:traceheur}
 has not been made; it is open.
 
+\emph{The next order.} Under the same assumptions, and for $k = 1$, the terms of
+order $1/r$ of the ladder give a term of order $1/r$ of the trace. Suppose that
+\[
+\lambda_n = \Lambda_r\,\mu^{-m}\exp\!\Big(\frac{\alpha_c + \gamma_c m^2}{r}\Big),
+\qquad m = n + \tfrac12,
+\]
+with complex constants $\alpha_c$, $\gamma_c$ such that $\mathrm{Re}\,\alpha_c =
+\alpha$ and $\gamma_c = -\pi i\,b$, so that $\mathrm{Re}\,\gamma_c =
+\pi\,\mathrm{Im}(b) = \gamma$; this is the form that the Bohr-Sommerfeld rule of
+Section~\ref{sec:normalform} suggests. Expanding the exponential to first order in
+$1/r$ and summing over $n$,
+\[
+\sum_{n \ge 0} \mu^{-m}\Big(1 + \frac{\gamma_c m^2}{r}\Big)
+= \frac{1}{\mu^{1/2} - \mu^{-1/2}}\Big(1 + \frac{\gamma_c\langle m^2\rangle}{r}\Big),
+\]
+where
+\[
+\langle m^2\rangle = \frac{\sum_n m^2\mu^{-m}}{\sum_n \mu^{-m}}
+= \frac14 + \frac{2}{\mu + \mu^{-1} - 2}.
+\]
+Indeed, with $x = \mu^{-1}$, $\sum_n m^2 x^m = (x\,\tfrac{d}{dx})^2\big(x^{1/2}/(1-x)\big)
+= x^{1/2}(1 + 6x + x^2)/\big(4(1-x)^3\big)$, and $(1 + 6x + x^2)/\big(4(1-x)^2\big) =
+\frac14 + 2x/(1-x)^2$, while $\mu + \mu^{-1} - 2 = (1-x)^2/x$. Hence
+$\log|\Tr\rho_{r,c}(\varphi)| = \log|\Lambda_r| - \log|\mu^{1/2} - \mu^{-1/2}| + S_2/r
++ O(r^{-2})$ with
+\begin{equation}\label{eq:S2}
+S_2 = \alpha + \mathrm{Re}\big(\gamma_c\langle m^2\rangle\big)
+= \alpha + \frac{\gamma}{4} + 2\pi\,\mathrm{Im}\Big(\frac{b}{\mu + \mu^{-1} - 2}\Big).
+\end{equation}
+The expansion in $1/r$ is not uniform in $n$, so the summation is formal even under
+the assumptions above. Section~\ref{sec:alpha0} uses $S_2$ at $\theta = 0$.
+
 \subsection{Relation to the asymptotic expansion conjectures}\label{sec:relation}
 Detcherry and Kalfagianni \cite[Thm.~2.3]{DK} show, for $r \ge 3$ odd, $\Sigma$
 compact oriented and $c$ a colouring of $\partial\Sigma$ by even integers in
@@ -902,9 +979,57 @@ gives $-(n+\tfrac12)\log\mu$ from the linear term and
 from the quadratic term, whose real part is $\pi\,\mathrm{Im}(b)\,(n+\tfrac12)^2/r$.
 This reproduces the shape $\alpha + \gamma(n+\frac12)^2$ of
 Observation~\ref{obs:subleading} and suggests $\gamma = \pi\,\mathrm{Im}(b)$. It does
-not explain $\alpha$, which stays open. A term $I^3$ in $H$ would contribute
-$\hbar^2(n+\frac12)^3$, that is order $r^{-2}$ with cubic dependence on $n$; see
-Remark~\ref{rem:cubic}.
+not determine $\alpha$; see the heuristic at the end of this subsection, and
+Observation~\ref{obs:alpha0} for $\theta = 0$.
+
+\emph{The next coefficient.} Write $\Lambda(I) = \mu(1 + bI + b_2I^2 + \cdots)$, with
+$I$ the action for the area form $\omega$ fixed above. Since $u' = \Lambda(I)u$ is the
+time-one map of $H$, $H' = \log\Lambda$, so
+\[
+H(I) = I\log\mu + \frac{b}{2}I^2 + \frac{c}{3}I^3 + \cdots, \qquad c = b_2 - \frac{b^2}{2}.
+\]
+The same Bohr-Sommerfeld rule gives from the cubic term
+\[
+-\frac{c}{3}\,\hbar^2\left(n+\tfrac12\right)^3 = \frac{4\pi^2}{3}\,
+\frac{c\,(n+\frac12)^3}{r^2},
+\]
+so $L_n = \log|\lambda_n|$ should contain $\delta_3(n+\frac12)^3/r^2$ with
+\begin{equation}\label{eq:delta3}
+\delta_3 = \frac{4\pi^2}{3}\,\mathrm{Re}(c).
+\end{equation}
+There is no free parameter. Under complex conjugation of the fixed point all
+coefficients of the map, and of $\omega$, are conjugated, so $c$ goes to $\bar c$; thus
+$\mathrm{Re}(c)$, unlike $\mathrm{Im}(b)$, does not depend on which of the two
+conjugate points is taken. We compute $c$ with the tool of Appendix~\ref{app:tools},
+from the normal form to degree~$5$. The normalising map used there is not symplectic,
+so the product $s = uv$ of the normal-form coordinates is not the action: if $j_1$ is
+the coefficient of $uv$ in the Jacobian determinant of the normalising map, then
+$I = s + j_1 s^2/2$, which changes $b_2$ and not $b$. The self-test checks this
+computation. On a synthetic map with planted values of $\log\mu$, $b$ and $c$ it
+recovers all three to $10^{-18}$; without the correction by $j_1$ the computed $c$ is
+off by $0.17$ (check \texttt{NF1}). For the cyclic rotations $RLL$ of $LLR$ (at
+$\theta = 0, 1$) and $RL$ of $LR$ (at $\theta = 0, 1, 2$), which give conjugate maps,
+$\mu$, $b$ and $c$ agree with those of the original word, with differences in $c$ of
+at most $5.1\cdot10^{-13}$ (check \texttt{NF2}). The rotation $LRL$ of $LLR$ could not
+be used: its fixed point lies on $2z - xy = 0$, where the chart $(x,y)$ is singular.
+The values of $c$ are in Table~\ref{tab:c} (Section~\ref{sec:order2}).
+
+\emph{A heuristic for the expansion in $1/r$.} The following is a heuristic, in the
+same sense as the rule above. Suppose that
+\[
+\log\lambda_n = (\text{leading term}) - \frac{1}{\hbar}\Big[H_0(I) + \hbar^2 H_2(I)
++ O(\hbar^4)\Big], \qquad I = \hbar\left(n+\tfrac12\right),
+\]
+with $H_0 = H$ the classical normal-form Hamiltonian above and no odd powers of
+$\hbar$ inside the bracket to this order. With $m = n + \frac12$ and
+$\hbar = 2\pi i/r$, the real parts of the terms up to order $r^{-2}$ are
+$-m\log|\mu|$, $\pi\,\mathrm{Im}(b)\,m^2/r$ and $\delta_3 m^3/r^2$ from $H_0$, and
+$2\pi\,\mathrm{Im}\,H_2(0)/r$ and $4\pi^2\,\mathrm{Re}\,H_2'(0)\,m/r^2$ from
+$\hbar^2H_2$. So $\alpha$ would be $2\pi\,\mathrm{Im}\,H_2(0)$, and the term of order
+$r^{-2}$ would be $(d_1 m + \delta_3 m^3)/r^2$, odd in $m$, with
+$d_1 = 4\pi^2\,\mathrm{Re}\,H_2'(0)$. A term of order $\hbar$ inside the bracket would
+add, among others, a term linear in $m$ at order $1/r$ and a term in $m^2$ at order
+$r^{-2}$. Section~\ref{sec:order2} compares this with the data.
 
 Rules of this kind are theorems in semiclassical analysis for real hyperbolic fixed
 points. Borns-Weil \cite[Thm.~1]{BW} shows for a quantised linear hyperbolic map (a
@@ -927,13 +1052,19 @@ In all eight cases ($LR$ and $LLR$, $\theta_{\mathrm{nom}} = 0, 1, 2, 3$),
 \[
 \gamma = \pi\,\mathrm{Im}(b)
 \]
-at the precision of the fitted $\gamma$ (five digits); see Table~\ref{tab:twist}.
+at the precision of the fitted $\gamma$ (five digits); see Table~\ref{tab:twist}. A
+direct test that does not use the fitted $\gamma$ is in Section~\ref{sec:robust}.
 Here $b$ is computed only from the trace map, as the normal-form coefficient at the
 geometric fixed point; $\gamma$ enters only the ratio column, and nothing is fitted to
 $\pi$. For $LR$ the computed $b$ is purely imaginary and $\mu$ is real; for $LLR$ both
 are complex. The sign of $\mathrm{Im}(b)$ depends on which of the two
-complex-conjugate geometric fixed points is taken; the convention is
-$\mathrm{Im}\,x > 0$. The coefficient $b$ scales inversely with the normalisation of
+complex-conjugate geometric fixed points is taken. We fix it by the following rule~S.
+The sum of Bloch-Wigner dilogarithms of Section~\ref{sec:classical}, taken with its
+sign (the signed volume), changes sign under complex conjugation of the fixed point,
+and so does $\mathrm{Im}(b)$. Rule~S takes, among the non-real fixed points of maximal
+volume, one whose signed volume is positive, the sign convention being fixed once, on
+$LR$ at $\theta = 0$. For $LR$ and $LLR$ rule~S selects the point with
+$\mathrm{Im}\,x > 0$ in all eight cases. The coefficient $b$ scales inversely with the normalisation of
 the area form, so the constant $\pi$ is tied to the choice
 $\omega = dx\wedge dy/(2z - xy)$ together with $\hbar = 2\pi i/r$; the content of the
 observation is that one constant fits all eight cases. Since $b$ is purely imaginary
@@ -974,6 +1105,59 @@ $-(n+\frac12)\arg\mu - \pi\,\mathrm{Re}(b)\,(n+\frac12)^2/r$, up to terms indepe
 of $n$ and the conjugation convention. For $LR$ the $(n+\frac12)^2$ phase term
 vanishes; for $LLR$ it does not. The phases are not in the data, so this is
 an untested prediction.
+
+\emph{Further words.} Table~\ref{tab:predict} gives $b$ and the predicted
+$\gamma = \pi\,\mathrm{Im}(b)$ under rule~S for the five words of
+Section~\ref{sec:fivewords} at $\theta = 0, 1, 2, 3$. There is no measured $\gamma$ for
+these words, so these are untested predictions. For them the choice of conjugate
+matters in practice: in $7$ of the $20$ cases ($LLRR$ at $\theta = 0, 3$; $LLLRR$ at
+$\theta = 0, 2, 3$; $LRLRR$ at $\theta = 0, 1$) the point with $\mathrm{Im}\,x > 0$ is
+the other conjugate, with negative signed volume and $\mathrm{Im}(b) < 0$. Under
+rule~S, $\mathrm{Im}(b) > 0$ in all $28$ cases of Tables~\ref{tab:twist}
+and~\ref{tab:predict}, and in every case compared the sign of $\mathrm{Im}(b)$ is the
+sign of the signed volume. Where several non-real fixed points of maximal volume have
+positive signed volume (two for $LLR$, $LLLRR$, $LRLRR$ and $LLLLR$, four for
+$LLRR$), they give the same $\mu$ and $b$, to $3.4\cdot10^{-15}$ in $b$. The rule and
+these facts are checked by the self-test of \texttt{analysis/ladder\_tools.cpp}
+(Appendix~\ref{app:tools}).
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llcc}
+\toprule
+word & $\theta$ & $b$ & $\pi\,\mathrm{Im}(b)$ \\
+\midrule
+$LLLR$  & 0 & $0.525326 + 0.521513\,i$ & 1.63838184 \\
+$LLLR$  & 1 & $0.468313 + 0.567236\,i$ & 1.78202411 \\
+$LLLR$  & 2 & $0.254922 + 0.635532\,i$ & 1.99658413 \\
+$LLLR$  & 3 & $-0.055045 + 0.508607\,i$ & 1.59783629 \\
+$LLRR$  & 0 & $0.863158\,i$ & 2.71169050 \\
+$LLRR$  & 1 & $0.728097\,i$ & 2.28738442 \\
+$LLRR$  & 2 & $0.447421\,i$ & 1.40561573 \\
+$LLRR$  & 3 & $0.206123\,i$ & 0.64755501 \\
+$LLLRR$ & 0 & $0.397726 + 0.946672\,i$ & 2.97405900 \\
+$LLLRR$ & 1 & $0.296812 + 0.883998\,i$ & 2.77716226 \\
+$LLLRR$ & 2 & $0.076742 + 0.675921\,i$ & 2.12346899 \\
+$LLLRR$ & 3 & $-0.073004 + 0.373238\,i$ & 1.17256318 \\
+$LRLRR$ & 0 & $-0.348386 + 1.002913\,i$ & 3.15074507 \\
+$LRLRR$ & 1 & $-0.209042 + 0.891461\,i$ & 2.80060747 \\
+$LRLRR$ & 2 & $0.015483 + 0.593154\,i$ & 1.86344690 \\
+$LRLRR$ & 3 & $0.100634 + 0.281943\,i$ & 0.88575084 \\
+$LLLLR$ & 0 & $0.697352 + 0.521270\,i$ & 1.63761789 \\
+$LLLLR$ & 1 & $0.670217 + 0.572494\,i$ & 1.79854159 \\
+$LLLLR$ & 2 & $0.531719 + 0.715200\,i$ & 2.24686659 \\
+$LLLLR$ & 3 & $0.152567 + 0.779753\,i$ & 2.44966546 \\
+\bottomrule
+\end{tabular}
+\caption{Untested predictions. Twist coefficients $b$ under rule~S, rounded to six
+decimals, and $\pi\,\mathrm{Im}(b)$, the value of $\gamma$ that
+Observation~\ref{obs:twist} would predict, from the second table of
+\texttt{ladder\_tools stress data/stress\_7words\_r101.csv} (columns
+\texttt{b(rule S)} and \texttt{gamma\_pred(rule S)}). For $LLRR$ the computed real part
+of $b$ is below $3\cdot10^{-17}$ in absolute value and is printed as $0$. No
+eigenvalue data of order $1/r$ exist for these words.}
+\label{tab:predict}
+\end{table}
 
 %======================================================================
 \section{Numerical method}\label{sec:method}
@@ -1018,9 +1202,11 @@ $c < r/2$ and $c > r/2$, are listed in Appendix~\ref{app:data}.
 We state the limits of the data plainly.
 \begin{itemize}
 \item Only the words $LR$ and $LLR$ are implemented in the solver. Five further words
-were run only for $r \le 101$ and extrapolated (\texttt{data/stress\_7words\_r101.csv});
-several of those extrapolations are unusable (for example line 5, column
-\texttt{d4}, and line 18), and we do not use that file as evidence.
+were run only for $r \le 101$ and extrapolated (\texttt{data/stress\_7words\_r101.csv}),
+by a script that is not in the repository. We use its columns \texttt{S},
+\texttt{d0} and \texttt{d1} (Section~\ref{sec:fivewords}). The extrapolations of the
+higher gaps are unusable (for example line 5, column \texttt{d4}, and line 18,
+columns \texttt{d3} to \texttt{d5}), and we do not use them.
 \item Only the moduli $\log|\lambda_n|$ are recorded. The Ritz values are complex,
 but the output sorts and prints only their logarithms, so the phases are lost.
 \item Convergence is a step-size test: the iteration stops when the top eight values
@@ -1053,6 +1239,12 @@ $\beta_{j,0} = \alpha + \gamma(j-\frac12)^2$. The constants
 $\beta_{1,0}, \dots, \beta_{8,0}$ are the columns \texttt{b1}, \dots, \texttt{b8} of
 the CSV; the other coefficients are not stored. The rows with $500 \le r \le 1001$
 that enter this fit are not in the repository (see the previous item).
+\item The tests of order $r^{-2}$ (Section~\ref{sec:order2}) rest on four values of
+$r$, $2001$ to $10001$, with one degree of freedom left in the three-term
+extrapolation. For $LLR$, $\theta \approx 3$, there are three rows, so the three-term
+extrapolation is an exact interpolation and that case is not tested at three terms.
+\item The closed forms for $\alpha$ (Section~\ref{sec:alpha0}) rest on two cases,
+$LR$ and $LLR$ at $\theta \approx 0$, and their rationals are fitted.
 \item Multi-threaded runs of the solver were not tested.
 \end{itemize}
 
@@ -1063,8 +1255,10 @@ matrices of Section~\ref{sec:setup}, for odd $r$ from $5$ up to a chosen bound.
 \section{Evidence}\label{sec:evidence}
 %======================================================================
 
-All numbers in this section are copied from files in \texttt{data/} or obtained from
-them by the arithmetic shown. We write $L_n = \log|\lambda_n|$ ($n = 0,\dots,7$; the
+All numbers in this section are copied from files in \texttt{data/}, obtained from
+them by the arithmetic shown, or copied from the output of
+\texttt{analysis/ladder\_tools.cpp} run on them (Appendix~\ref{app:tools}). We write
+$L_n = \log|\lambda_n|$ ($n = 0,\dots,7$; the
 data files call these $\log|\lambda_1|,\dots,\log|\lambda_8|$). The gaps are
 \[
 \delta_n = L_n - L_{n+1}, \qquad n = 0, 1, 2, \dots,
@@ -1239,12 +1433,16 @@ $r(r\sigma_n/2 - \gamma) = 15.75, 26.32, 36.89, 47.48, 58.07, 68.68$.
 
 \begin{remark}\label{rem:cubic}
 The increments $10.57, 10.57, 10.59, 10.59, 10.61$ are nearly constant. A term
-$\varepsilon(n+\frac12)^3/r^2$ in $L_n$ contributes $3\varepsilon(n+\frac32)$ to
-$r(r\sigma_n/2-\gamma)$, which would give $\varepsilon \approx 3.53$ from the
-increments. The intercept at $n = 0$ does not test this: it also absorbs a term
-$(n+\frac12)^2/r^2$ in $L_n$ and the drift of $\theta = 2\pi/r$ with $r$. This is one
-case at one value of $r$; it is compatible with an $O(r^{-2})$ remainder that
-depends on $n$, and does not single out a cubic term.
+$\delta_3(n+\frac12)^3/r^2$ in $L_n$ contributes $3\delta_3(n+\frac32)$ to
+$r(r\sigma_n/2-\gamma)$, so the increments alone would give $\delta_3 \approx 3.53$,
+from one case at one value of $r$. The prediction~\eqref{eq:delta3} of
+Section~\ref{sec:normalform} is $\delta_3 = 3.5145$ (\texttt{d3\_pred(0)} in the output
+of \texttt{ladder\_tools order2}), that is increments $3\delta_3 = 10.544$; the
+increments at $r = 10001$ still contain terms of order $1/r$.
+Observation~\ref{obs:cubic} tests the prediction with an extrapolation in $r$. The
+intercept at $n = 0$ also absorbs a term $(n+\frac12)^2/r^2$ in $L_n$ and the drift of
+$\theta = 2\pi/r$ with $r$; the same observation finds no such term, with $\gamma$
+taken at the angle of each row.
 \end{remark}
 
 \subsection{Leading term at $r = 10001$}
@@ -1305,6 +1503,473 @@ $LLR$ & 3 & 0.33714 & 0.71962 & 2.40914 & 1.94573 \\
 $r \ge 500$; the fitting script is not in the repository.}
 \label{tab:fits}
 \end{table}
+
+\subsection{Robustness of $\gamma$ and a direct test}\label{sec:robust}
+The comparison $\gamma = \pi\,\mathrm{Im}(b)$ of Observation~\ref{obs:twist} uses the
+stored $\gamma$, which comes from a fit with a term in $\theta - \theta_{\mathrm{nom}}$
+made by a script that is not in the repository. Here we test the relation in three
+further ways with \texttt{analysis/ladder\_tools.cpp}; the commands are listed in
+Appendix~\ref{app:tools}. In this subsection $\Vol$ is the tetrahedron volume of the
+selected fixed point (Section~\ref{sec:classical}), and $\Vol$, $\log|\mu|$ and $b$ are
+computed by the tool at the exact $\theta$ of each row. Bounds quoted in the text of
+this subsection and of Section~\ref{sec:fivewords} are rounded outward, so they can
+differ in the last digit from the table entries.
+
+\emph{A direct test on the raw rows.} For each raw row, at $r = 2001$, $3001$, $5001$
+or $10001$, let $u_n = rE_{n+1}$, $n = 0, \dots, 7$, with $E_j$ as in
+Section~\ref{sec:method}. Let $\gamma_{\mathrm{row}}$ be the coefficient of
+$(n+\frac12)^2$ in the least-squares fit of $u_0, \dots, u_7$ by
+$\alpha_{\mathrm{row}} + \gamma_{\mathrm{row}}(n+\frac12)^2$, and put
+$z_{\mathrm{row}} = \gamma_{\mathrm{row}} - \pi\,\mathrm{Im}\,b(\theta_{\mathrm{row}})$,
+with $b$ computed at the exact angle $\theta_{\mathrm{row}}$ of the row. If
+Observation~\ref{obs:subleading} holds with $\gamma(\theta) =
+\pi\,\mathrm{Im}\,b(\theta)$, then $z_{\mathrm{row}} \to 0$ as $r \to \infty$. Before
+extrapolation $z_{\mathrm{row}}$ is not small: with the fit over $n = 0, \dots, 7$,
+$|z_{\mathrm{row}}/\gamma_{\mathrm{row}}|$ is between $2.79\cdot10^{-3}$ and
+$1.31\cdot10^{-2}$ at $r = 2001$ and between $5.05\cdot10^{-4}$ and
+$2.56\cdot10^{-3}$ at $r = 10001$ (first \texttt{direct} block of the output of
+\texttt{ladder\_tools robust}). For each case (word,
+$\theta_{\mathrm{nom}}$) we fit $z_{\mathrm{row}}$ over the rows by $z_0 + z_1/r$ (two
+terms) and by $z_0 + z_1/r + z_2/r^2$ (three terms); the claim is $z_0 = 0$. No fitted
+dependence on $\theta$ enters, and no stored constant. We also vary the fit over $n$:
+levels $n = 0, \dots, 3$, levels $n = 0, \dots, 5$, and levels $n = 0, \dots, 7$ with an
+additional term linear in $n+\frac12$. For $LLR$, $\theta \approx 3$, there are three
+rows, so only the two-term extrapolation is made. Table~\ref{tab:direct} gives the
+results.
+
+\begin{table}[ht]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llccccc}
+\toprule
+& & & \multicolumn{2}{c}{$z_0/(\pi\,\mathrm{Im}\,b)$, $n = 0, \dots, 7$}
+& \multicolumn{2}{c}{largest $|z_0/(\pi\,\mathrm{Im}\,b)|$} \\
+word & $\theta_{\mathrm{nom}}$ & $\pi\,\mathrm{Im}\,b(\theta_{\mathrm{nom}})$ & two terms & three terms & two terms & three terms \\
+\midrule
+$LR$  & 0 & 1.38194237 & $-2.44\mathrm{e}{-5}$ & $+1.46\mathrm{e}{-7}$ & $4.86\mathrm{e}{-5}$ & $3.35\mathrm{e}{-7}$ \\
+$LR$  & 1 & 1.11207843 & $+2.54\mathrm{e}{-5}$ & $-1.68\mathrm{e}{-5}$ & $4.66\mathrm{e}{-5}$ & $2.71\mathrm{e}{-5}$ \\
+$LR$  & 2 & 0.62057295 & $+6.02\mathrm{e}{-5}$ & $-3.52\mathrm{e}{-6}$ & $1.19\mathrm{e}{-4}$ & $5.81\mathrm{e}{-6}$ \\
+$LR$  & 3 & 0.26261758 & $+6.69\mathrm{e}{-5}$ & $-1.99\mathrm{e}{-6}$ & $1.32\mathrm{e}{-4}$ & $3.33\mathrm{e}{-6}$ \\
+$LLR$ & 0 & 1.64239945 & $-8.09\mathrm{e}{-6}$ & $-5.19\mathrm{e}{-8}$ & $1.64\mathrm{e}{-5}$ & $1.19\mathrm{e}{-7}$ \\
+$LLR$ & 1 & 1.62108140 & $-3.01\mathrm{e}{-5}$ & $+2.29\mathrm{e}{-6}$ & $5.98\mathrm{e}{-5}$ & $3.85\mathrm{e}{-6}$ \\
+$LLR$ & 2 & 1.32335629 & $+3.65\mathrm{e}{-6}$ & $-5.06\mathrm{e}{-6}$ & $6.11\mathrm{e}{-6}$ & $8.34\mathrm{e}{-6}$ \\
+$LLR$ & 3 & 0.71962350 & $+7.64\mathrm{e}{-5}$ & & $1.55\mathrm{e}{-4}$ & \\
+\bottomrule
+\end{tabular}
+\caption{The direct test. Columns 4 and 5: the extrapolated $z_0$, relative to
+$\pi\,\mathrm{Im}\,b$ at the nominal angle, for the fit over $n = 0, \dots, 7$, with
+two terms ($1, 1/r$) and three terms ($1, 1/r, 1/r^2$). Columns 6 and 7: the largest
+absolute value over the four fits over $n$ ($n \le 7$, $n \le 3$, $n \le 5$, and
+$n \le 7$ with a linear term). Rounded from the second \texttt{direct} block of the
+output of \texttt{ladder\_tools robust}; column 3 is \texttt{gamma\_pred} of the
+output of \texttt{ladder\_tools stress}, lines 26--33. $LLR$, $\theta \approx 3$, has
+three rows ($r = 5001$ missing), so no three-term extrapolation.}
+\label{tab:direct}
+\end{table}
+
+In the seven cases with four rows, the three-term extrapolation gives
+$|z_0|/(\pi\,\mathrm{Im}\,b) \le 1.7\cdot10^{-5}$ for $n = 0, \dots, 7$ and at most
+$2.8\cdot10^{-5}$ over the four fits over $n$. The two-term extrapolation gives at most
+$7.7\cdot10^{-5}$ for $n = 0, \dots, 7$ in all eight cases and at most
+$1.6\cdot10^{-4}$ over the four fits over $n$; the largest values come from the fits
+with a linear term. At $\theta \approx 0$ the three-term extrapolation gives at most
+$1.5\cdot10^{-7}$ for $n = 0, \dots, 7$ and $3.4\cdot10^{-7}$ over the four fits, for
+both words.
+
+\begin{remark}\label{rem:thetazero}
+The following explanation of the better behaviour at $\theta \approx 0$ is ours and is
+not tested. At $\theta \approx 0$ the colour is $c = (r-1)/2$, so $\theta_r = 2\pi/r$
+is itself a smooth function of $1/r$. At the other angles the rows have slightly
+different $\theta - \theta_{\mathrm{nom}}$, up to about $1.7\cdot10^{-3}$ in absolute
+value, and the coefficient of
+$1/r$ in $z_{\mathrm{row}}$ depends on $\theta$; an extrapolation in $1/r$ alone does
+not remove this.
+\end{remark}
+
+\emph{The refit and its variants.} The tool also makes, on the raw rows, the refit
+described before Table~\ref{tab:fits}: for each $j = 1, \dots, 8$ a fit of $rE_j$
+over the rows by $\beta_{j,0} + \beta_{j,1}/r + \beta_{j,\theta}(\theta -
+\theta_{\mathrm{nom}})$ (without the last term at $\theta_{\mathrm{nom}} = 0$), and
+then $\beta_{j,0} = \alpha + \gamma(j-\frac12)^2$ over $j$. Besides this base fit it
+makes the following variants: one value of $r$ dropped (for each $r$ in turn); levels
+$j \le 4$ or $j \le 6$ only; an additional term linear in $j-\frac12$ in the second
+stage; and an additional term $1/r^2$ in the first
+stage. Variants in which the number of rows equals the number of regressors are exact
+interpolations and are marked with a star in the output. Two variants are singular by
+design: at $\theta \approx 2$, for both words, the rows at $r = 2001, 3001, 5001$ have
+$\theta - 2$ affine in $1/r$, so with $r = 10001$ dropped the regressors $1$, $1/r$
+and $\theta - \theta_{\mathrm{nom}}$ are linearly dependent; the output marks these
+two as singular. For $LLR$, $\theta \approx 3$, the variants that would need more
+rows than the three available are not computed. Over all non-singular variants of
+all eight cases, $\gamma/\mathrm{Im}(b)$ lies between $3.14144185$ and $3.14200794$,
+that is $\gamma/(\pi\,\mathrm{Im}(b)) - 1$ lies between $-4.800\cdot10^{-5}$ ($LR$,
+$\theta \approx 0$, linear term) and $+1.322\cdot10^{-4}$ ($LR$, $\theta \approx 3$,
+linear term). Without the starred variants the extremes are the same; for $LLR$,
+$\theta \approx 3$, no variant is left. For the base fit alone the range is from
+$-2.381\cdot10^{-5}$ ($LR$, $\theta \approx 0$) to $+6.690\cdot10^{-5}$ ($LR$,
+$\theta \approx 3$). (Summary lines and variant lines of the first block of the output
+of \texttt{ladder\_tools robust}.)
+
+\emph{An estimate from disjoint data.} The rows with $r = 201, 301, \dots, 801, 1001$
+are not used above. From their gaps $\delta_0, \dots, \delta_4$, printed to five
+decimals in \texttt{data/r201-1001\_summary.txt}, put
+\[
+y_n = \frac{r\big(\log|\mu(\theta)| - \delta_n\big)}{2(n+1)}, \qquad n = 0, \dots, 4,
+\]
+with $\log|\mu|$ recomputed at the exact $\theta$ of the row. By
+Observation~\ref{obs:subleading}, $\delta_n = \log|\mu| - 2\gamma(n+1)/r + O(r^{-2})$,
+so $y_n \to \gamma$. We fit $w_n = y_n - \pi\,\mathrm{Im}\,b(\theta_{\mathrm{row}})$
+over the eight rows of each case by $\{1, 1/r\}$ and by $\{1, 1/r, 1/r^2\}$, again
+without a term in $\theta$, and take the mean of the five intercepts over $n$. The
+tool also prints a bound for this mean from the rounding of the printed gaps: the
+worst-case effect of an error $5\cdot10^{-6}$ in each gap on the intercept, averaged
+over $n$. The bound is $1.33\cdot10^{-3}$ for the two-term fit and $3.15\cdot10^{-3}$
+for the three-term fit, in every case. Table~\ref{tab:gapsdirect} gives the means.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llcccc}
+\toprule
+& & \multicolumn{2}{c}{two terms (bound $1.33\mathrm{e}{-3}$)}
+& \multicolumn{2}{c}{three terms (bound $3.15\mathrm{e}{-3}$)} \\
+word & $\theta_{\mathrm{nom}}$ & mean & relative & mean & relative \\
+\midrule
+$LR$  & 0 & $-1.523\mathrm{e}{-3}$ & $-1.102\mathrm{e}{-3}$ & $-8.373\mathrm{e}{-5}$ & $-6.059\mathrm{e}{-5}$ \\
+$LR$  & 1 & $+2.956\mathrm{e}{-4}$ & $+2.658\mathrm{e}{-4}$ & $+2.689\mathrm{e}{-4}$ & $+2.418\mathrm{e}{-4}$ \\
+$LR$  & 2 & $+1.383\mathrm{e}{-3}$ & $+2.228\mathrm{e}{-3}$ & $+1.605\mathrm{e}{-4}$ & $+2.586\mathrm{e}{-4}$ \\
+$LR$  & 3 & $+7.422\mathrm{e}{-4}$ & $+2.826\mathrm{e}{-3}$ & $-7.212\mathrm{e}{-5}$ & $-2.746\mathrm{e}{-4}$ \\
+$LLR$ & 0 & $-3.421\mathrm{e}{-4}$ & $-2.083\mathrm{e}{-4}$ & $+6.255\mathrm{e}{-4}$ & $+3.808\mathrm{e}{-4}$ \\
+$LLR$ & 1 & $-2.107\mathrm{e}{-3}$ & $-1.300\mathrm{e}{-3}$ & $+3.263\mathrm{e}{-4}$ & $+2.013\mathrm{e}{-4}$ \\
+$LLR$ & 2 & $-8.698\mathrm{e}{-4}$ & $-6.573\mathrm{e}{-4}$ & $+1.592\mathrm{e}{-5}$ & $+1.203\mathrm{e}{-5}$ \\
+$LLR$ & 3 & $+2.834\mathrm{e}{-3}$ & $+3.938\mathrm{e}{-3}$ & $-2.593\mathrm{e}{-4}$ & $-3.604\mathrm{e}{-4}$ \\
+\bottomrule
+\end{tabular}
+\caption{The estimate from $r \le 1001$: mean over $n = 0, \dots, 4$ of the
+extrapolated intercepts of $w_n$, and the same relative to
+$\pi\,\mathrm{Im}\,b(\theta_{\mathrm{nom}})$. Copied from the two \texttt{direct}
+blocks of the output of \texttt{ladder\_tools gaps data/r201-1001\_summary.txt}
+(columns \texttt{mean} and \texttt{mean/(pi*Im\_b(theta\_nom))}).}
+\label{tab:gapsdirect}
+\end{table}
+
+With three terms the mean is within its rounding bound in all eight cases, and its
+absolute value is at most $3.9\cdot10^{-4}$ times $\pi\,\mathrm{Im}\,b$. The bound
+itself is between about $2\cdot10^{-3}$ ($LLR$, $\theta \approx 0$) and
+$1.2\cdot10^{-2}$ ($LR$, $\theta \approx 3$) times $\pi\,\mathrm{Im}\,b$, so this is a
+weaker check than the direct test. With two terms the mean exceeds its bound in four
+cases ($LR$ at $\theta \approx 0, 2$ and $LLR$ at $\theta \approx 1, 3$). In these four
+cases the intercepts for the single levels grow in absolute value with $n$, up to
+between $3.3\cdot10^{-3}$ and $6.8\cdot10^{-3}$ at $n = 4$; the growth is monotone in
+$n$ in three of them, and from $n = 1$ on for $LR$, $\theta \approx 0$. With the term
+$1/r^2$ this drift is gone: in each of the eight cases the five intercepts change sign
+and are not monotone in $n$. We read this as the effect of the terms of order $r^{-2}$
+in $\delta_n$ at $r \le 1001$.
+
+\emph{What the data support.} The direct test supports $\gamma = \pi\,\mathrm{Im}(b)$
+to a relative precision of about $2\cdot10^{-5}$ in the seven cases with four values of
+$r$ (three-term extrapolation, $2.8\cdot10^{-5}$ over all fits over $n$), and of about
+$8\cdot10^{-5}$ in all eight cases by the two-term extrapolation ($1.6\cdot10^{-4}$
+over all fits over $n$). At $\theta \approx 0$ the agreement is much closer, at most
+$3.4\cdot10^{-7}$ for both words; Remark~\ref{rem:thetazero} gives a possible reason.
+The data at $r \le 1001$, disjoint from those of the direct test, give an independent
+check at the level of their rounding, about $3\cdot10^{-3}$ in absolute terms. These
+numbers are extrapolations from four values of $r$ (three for $LLR$,
+$\theta \approx 3$), with at most two degrees of freedom left, and not error bars.
+The relation stays a numerical observation.
+
+\subsection{Order $r^{-2}$}\label{sec:order2}
+Section~\ref{sec:normalform} predicts that $L_n$ contains $\delta_3(n+\frac12)^3/r^2$
+with $\delta_3 = \frac{4\pi^2}{3}\mathrm{Re}(c)$, see~\eqref{eq:delta3}, and its
+heuristic suggests that at $\theta = 0$ the whole term of order $r^{-2}$ is odd in
+$m = n + \frac12$. We test this on the raw rows at $r = 2001, 3001, 5001, 10001$ with
+\texttt{ladder\_tools order2 data/r2001\_raw.txt data/r3001-5001\_raw.txt
+data/r10001\_raw.txt} (Appendix~\ref{app:tools}); all numbers in this subsection are
+copied from its output, or obtained from it by the arithmetic shown. As in
+Section~\ref{sec:robust}, $\Vol$ is the tetrahedron volume, and $\Vol$, $\log|\mu|$,
+$b$ and $c$ are computed by the tool at the exact angle $\theta_{\mathrm{row}}$ of each
+row, at the point used in the direct test. Table~\ref{tab:c} gives $c$
+at the nominal angles. We write the term of order $r^{-2}$ in $L_n$ as
+$(d_0 + d_1m + d_2m^2 + \delta_3m^3)/r^2$; this form is itself an assumption, which the
+fourth differences below support.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llcc}
+\toprule
+word & $\theta_{\mathrm{nom}}$ & $c$ & $8\pi^2\,\mathrm{Re}(c) = 6\delta_3$ \\
+\midrule
+$LR$  & 0 & $0.267074$  & $21.087288$ \\
+$LR$  & 1 & $0.122984$  & $9.710463$ \\
+$LR$  & 2 & $-0.038078$ & $-3.006527$ \\
+$LR$  & 3 & $-0.065116$ & $-5.141384$ \\
+$LLR$ & 0 & $0.292128 - 0.128462\,i$  & $23.065511$ \\
+$LLR$ & 1 & $0.341783 + 0.005440\,i$  & $26.986122$ \\
+$LLR$ & 2 & $0.229242 + 0.280867\,i$  & $18.100202$ \\
+$LLR$ & 3 & $-0.032723 + 0.270743\,i$ & $-2.583694$ \\
+\bottomrule
+\end{tabular}
+\caption{The coefficient $c$ of $I^3/3$ in the normal-form Hamiltonian, rounded to six
+decimals, and $8\pi^2\,\mathrm{Re}(c)$, from the last block (\texttt{all cases}) of the
+output of \texttt{ladder\_tools alpha} (columns \texttt{c} and \texttt{6d3\_pred}). For
+$LR$ the computed imaginary part of $c$ is below $3\cdot10^{-13}$ in absolute value and
+is not printed. At $\theta = 0$, $\delta_3 = 3.514548$ ($LR$) and $3.844252$ ($LLR$).}
+\label{tab:c}
+\end{table}
+
+\emph{(a) Third differences.} The third difference annihilates polynomials of degree
+at most $2$ in $n$, and $\Delta^3 m^3 = 6$. So
+\[
+T_n(r) = r^2\big(L_{n+3} - 3L_{n+2} + 3L_{n+1} - L_n\big), \qquad n = 0, \dots, 4,
+\]
+should tend to $6\delta_3 = 8\pi^2\,\mathrm{Re}(c)$. This uses neither $\Vol$ nor
+$\mu$ nor $b$. For example, for $LR$ at $\theta \approx 0$ and $r = 10001$,
+$T_0 = 21.128884$ against $8\pi^2\,\mathrm{Re}\,c(\theta_{\mathrm{row}}) = 21.087282$
+(block \texttt{B1}). For each case we fit $z = T_n - 8\pi^2\,\mathrm{Re}\,
+c(\theta_{\mathrm{row}})$ over the rows by $\{1, 1/r\}$ and by $\{1, 1/r, 1/r^2\}$; the
+claim is that the intercept $z_0$ vanishes. Table~\ref{tab:order2a} gives $z_0$
+relative to $8\pi^2\,\mathrm{Re}\,c(\theta_{\mathrm{nom}})$.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{llcccc}
+\toprule
+& & \multicolumn{2}{c}{two terms} & \multicolumn{2}{c}{three terms} \\
+word & $\theta_{\mathrm{nom}}$ & $n = 0$ & largest over $n$ & $n = 0$ & largest over $n$ \\
+\midrule
+$LR$  & 0 & $-2.86\mathrm{e}{-5}$ & $2.31\mathrm{e}{-4}$ & $+1.40\mathrm{e}{-7}$ & $3.21\mathrm{e}{-6}$ \\
+$LR$  & 1 & $+1.35\mathrm{e}{-4}$ & $9.24\mathrm{e}{-4}$ & $-6.31\mathrm{e}{-5}$ & $2.05\mathrm{e}{-4}$ \\
+$LR$  & 2 & $-1.88\mathrm{e}{-4}$ & $1.57\mathrm{e}{-3}$ & $-1.11\mathrm{e}{-5}$ & $3.70\mathrm{e}{-5}$ \\
+$LR$  & 3 & $-5.58\mathrm{e}{-6}$ & $7.10\mathrm{e}{-6}$ & $+1.60\mathrm{e}{-5}$ & $4.40\mathrm{e}{-5}$ \\
+$LLR$ & 0 & $+1.10\mathrm{e}{-5}$ & $8.90\mathrm{e}{-5}$ & $-9.10\mathrm{e}{-8}$ & $2.03\mathrm{e}{-6}$ \\
+$LLR$ & 1 & $-4.89\mathrm{e}{-5}$ & $3.66\mathrm{e}{-4}$ & $+1.30\mathrm{e}{-5}$ & $4.62\mathrm{e}{-5}$ \\
+$LLR$ & 2 & $+7.23\mathrm{e}{-5}$ & $5.57\mathrm{e}{-4}$ & $-1.92\mathrm{e}{-5}$ & $7.41\mathrm{e}{-5}$ \\
+$LLR$ & 3 & $-6.40\mathrm{e}{-4}$ & $5.25\mathrm{e}{-3}$ & & \\
+\bottomrule
+\end{tabular}
+\caption{Third differences: the extrapolated $z_0$ relative to
+$8\pi^2\,\mathrm{Re}\,c(\theta_{\mathrm{nom}})$, at $n = 0$ and the largest absolute
+value over $n = 0, \dots, 4$. Rounded from block \texttt{B1 fits} of the output of
+\texttt{ladder\_tools order2} (column \texttt{z0/(6d3\_pred(theta\_nom))}). $LLR$,
+$\theta \approx 3$, has three rows, so its three-term fit is an exact interpolation and
+is not shown.}
+\label{tab:order2a}
+\end{table}
+
+With three terms the relative intercept is at most $3.3\cdot10^{-6}$ in absolute value
+at $\theta \approx 0$, for both words, and at most $2.1\cdot10^{-4}$ in the five other
+cases with four rows; the largest value is at $LR$, $\theta \approx 1$, $n = 4$. With
+two terms it is at most $2.4\cdot10^{-4}$ at $\theta \approx 0$ and at most
+$1.6\cdot10^{-3}$ in the other five cases with four rows. For $LLR$,
+$\theta \approx 3$, the two-term values are at most $5.3\cdot10^{-3}$ relative, where
+$8\pi^2\,\mathrm{Re}(c) = -2.58$ is small; the three-term fit there is not a test. In
+all seven cases with four rows the three-term intercepts grow in absolute value with
+$n$, which we read as the effect of terms of order $r^{-3}$. The fourth differences
+show no term $m^4/r^2$: $r^2\Delta^4L_n$, $n = 0, \dots, 3$, is at most $0.23$ in
+absolute value at $r = 2001$ and at most $0.043$ at $r = 10001$, in all cases (block
+\texttt{B2}); the largest value decreases by about the ratio of the values of $r$.
+
+\emph{(b) The coefficient of $m^2$.} Second differences annihilate $d_0 + d_1m$, and
+$\Delta^2 m^3 = 6(n + \frac32)$, and they turn $\gamma m^2/r$ into $2\gamma/r$. With
+$\gamma = \pi\,\mathrm{Im}\,b(\theta_{\mathrm{row}})$ at the angle of the row,
+\begin{gather*}
+W_n(r) = r\big(r(L_{n+2} - 2L_{n+1} + L_n) - 2\pi\,\mathrm{Im}\,b(\theta_{\mathrm{row}})\big),
+\qquad n = 0, \dots, 5,\\
+W_n(r) \to 2d_2 + 6\delta_3\left(n + \tfrac32\right) \qquad (r \to \infty).
+\end{gather*}
+We fit $W_n - 6\delta_3(\theta_{\mathrm{row}})(n + \frac32)$ over the rows by
+$\{1, 1/r\}$ and by $\{1, 1/r, 1/r^2\}$; the intercept is an estimate of $2d_2$.
+Table~\ref{tab:order2b} gives it, in absolute terms.
+
+\begin{table}[ht]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llccccc}
+\toprule
+& & & \multicolumn{2}{c}{two terms} & \multicolumn{2}{c}{three terms} \\
+word & $\theta_{\mathrm{nom}}$ & $9\delta_3$ & $n = 0$ & largest over $n$ & $n = 0$ & largest over $n$ \\
+\midrule
+$LR$  & 0 & $31.63$ & $-2.56\mathrm{e}{-4}$ & $1.26\mathrm{e}{-2}$ & $+6.73\mathrm{e}{-7}$ & $1.40\mathrm{e}{-4}$ \\
+$LR$  & 1 & $14.57$ & $+6.06\mathrm{e}{-4}$ & $2.41\mathrm{e}{-2}$ & $-4.07\mathrm{e}{-4}$ & $6.82\mathrm{e}{-3}$ \\
+$LR$  & 2 & $-4.51$ & $+2.14\mathrm{e}{-4}$ & $1.21\mathrm{e}{-2}$ & $+2.04\mathrm{e}{-5}$ & $3.76\mathrm{e}{-4}$ \\
+$LR$  & 3 & $-7.71$ & $+1.99\mathrm{e}{-5}$ & $1.51\mathrm{e}{-4}$ & $-5.49\mathrm{e}{-5}$ & $8.40\mathrm{e}{-4}$ \\
+$LLR$ & 0 & $34.60$ & $+1.12\mathrm{e}{-4}$ & $5.28\mathrm{e}{-3}$ & $-4.78\mathrm{e}{-7}$ & $9.71\mathrm{e}{-5}$ \\
+$LLR$ & 1 & $40.48$ & $-5.75\mathrm{e}{-4}$ & $2.59\mathrm{e}{-2}$ & $+2.36\mathrm{e}{-4}$ & $4.11\mathrm{e}{-3}$ \\
+$LLR$ & 2 & $27.15$ & $+5.29\mathrm{e}{-4}$ & $2.62\mathrm{e}{-2}$ & $-2.20\mathrm{e}{-4}$ & $4.26\mathrm{e}{-3}$ \\
+$LLR$ & 3 & $-3.88$ & $+6.30\mathrm{e}{-4}$ & $3.49\mathrm{e}{-2}$ & & \\
+\bottomrule
+\end{tabular}
+\caption{The estimate of $2d_2$: extrapolated intercept of
+$W_n - 6\delta_3(\theta_{\mathrm{row}})(n+\frac32)$ at $n = 0$, and its largest absolute
+value over $n = 0, \dots, 5$. Column 3 is the scale $6\delta_3(n + \frac32)$ at $n = 0$,
+at the nominal angle. Rounded from block \texttt{B3 fits} of the output of
+\texttt{ladder\_tools order2} (columns \texttt{2d2\_est} and
+\texttt{6d3\_pred(theta\_nom)(n+3/2)}). For $LLR$, $\theta \approx 3$, the three-term fit
+is an exact interpolation and is not shown.}
+\label{tab:order2b}
+\end{table}
+
+With three terms the estimate at $n = 0$ is below $10^{-6}$ in absolute value at
+$\theta \approx 0$, for both words, against $9\delta_3 = 31.6$ ($LR$) and $34.6$
+($LLR$), and at most $4.1\cdot10^{-4}$ in the five other cases with four rows, against
+$|9\delta_3|$ between $4.5$ and $41$. The estimates grow smoothly in absolute value with
+$n$, at $\theta \approx 0$ up to $1.4\cdot10^{-4}$ at $n = 5$, and elsewhere up to
+$6.9\cdot10^{-3}$ ($LR$, $\theta \approx 1$). A smooth growth in $n$ points to leakage
+from the terms of order $r^{-3}$, so $n = 0$ gives the sharpest estimate.
+
+\emph{(c) The term of order $r^{-2}$ at $\theta \approx 0$.} At $\theta \approx 0$ the
+angle of a row is $\theta_{\mathrm{row}} = 2\pi/r$, a function of $r$ alone, and we
+also fit the residual itself. With $\mathrm{res}_n = r\big(L_n -
+r\Vol(\theta_{\mathrm{row}})/(4\pi) + m\log|\mu(\theta_{\mathrm{row}})|\big)$, which is
+$u_n = rE_{n+1}$ of Section~\ref{sec:robust}, we fit
+$\mathrm{res}_n - \pi\,\mathrm{Im}\,b(\theta_{\mathrm{row}})\,m^2$ over the four rows by
+$\{1, 1/r, 1/r^2\}$ (block \texttt{B4}). Its intercept is $\alpha$
+(Section~\ref{sec:alpha0}); its coefficient of $1/r$, $D(n)$, is the coefficient of
+$r^{-2}$ in $L_n$. If that coefficient is $d_1m + \delta_3m^3$, then
+$(D(n) - \delta_3m^3)/m$ does not depend on $n$. Table~\ref{tab:order2c} gives it with
+$\delta_3 = \texttt{d3\_pred(0)}$, which is not fitted.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rccccc}
+\toprule
+& & \multicolumn{2}{c}{$LR$, $\delta_3 = 3.514548$} & \multicolumn{2}{c}{$LLR$, $\delta_3 = 3.844252$} \\
+$n$ & $m$ & $D(n)$ & $(D(n) - \delta_3m^3)/m$ & $D(n)$ & $(D(n) - \delta_3m^3)/m$ \\
+\midrule
+0 & 0.5 & 0.963287  & 1.0479 & 0.329392  & $-0.30228$ \\
+1 & 1.5 & 13.433432 & 1.0479 & 12.520966 & $-0.30226$ \\
+2 & 2.5 & 57.533856 & 1.0476 & 59.311091 & $-0.30214$ \\
+3 & 3.5 & 154.349968 & 1.0468 & 163.766067 & $-0.30178$ \\
+\bottomrule
+\end{tabular}
+\caption{$\theta \approx 0$. $D(n)$ is the column of $D$ for the regressors
+$\{1, 1/r, 1/r^2\}$ in block \texttt{B4} of the output of \texttt{ladder\_tools order2}, and $\delta_3$ its
+\texttt{d3\_pred(0)}; the last column of each word is computed from these.}
+\label{tab:order2c}
+\end{table}
+
+For $n = 0, 1, 2$ the values of $(D(n) - \delta_3m^3)/m$ agree to $3.2\cdot10^{-4}$
+for $LR$ and $1.5\cdot10^{-4}$ for $LLR$. So at $\theta \approx 0$ the term of order
+$r^{-2}$ is, to this accuracy, $d_1m + \delta_3m^3$, with $d_1 = 1.0479$ ($LR$) and
+$d_1 = -0.3023$ ($LLR$); we have no formula for $d_1$. For larger $n$ the slopes $D(n)$
+are less accurate. The least-squares fit of $D(0), \dots, D(7)$ by
+$d_0 + d_1m + d_2m^2 + d_3m^3$ gives $d_0 = 0.0089$, $d_1 = 1.0293$, $d_2 = 0.0090$,
+$d_3 = 3.5132$ for $LR$ and $d_0 = -0.0038$, $d_1 = -0.2944$, $d_2 = -0.0038$,
+$d_3 = 3.8448$ for $LLR$, so $d_0$ and $d_2$ of order $10^{-2}$, and the fit by
+$d_1m + d_3m^3$ gives $d_1 = 1.0547$, $d_3 = 3.5140$ and $d_1 = -0.3051$,
+$d_3 = 3.8445$ (last two lines of each word in block \texttt{B4}).
+
+\begin{observation}[Order $r^{-2}$]\label{obs:cubic}
+In the seven cases with four values of $r$ ($LR$ at $\theta \approx 0, 1, 2, 3$ and
+$LLR$ at $\theta \approx 0, 1, 2$), write the term of order $r^{-2}$ in $L_n$ as
+$(d_0 + d_1m + d_2m^2 + \delta_3m^3)/r^2$, $m = n + \frac12$. Then:
+\begin{enumerate}
+\item[(a)] $\delta_3 = \frac{4\pi^2}{3}\mathrm{Re}(c)$, with $c$ computed from the
+trace map and nothing fitted: the extrapolated third differences agree with
+$8\pi^2\,\mathrm{Re}(c)$ to a relative $3.3\cdot10^{-6}$ at $\theta \approx 0$ and
+$2.1\cdot10^{-4}$ in the other five cases, for $n = 0, \dots, 4$
+(Table~\ref{tab:order2a});
+\item[(b)] $d_2 = 0$: the estimates of $2d_2$ at $n = 0$ are below $10^{-6}$ in
+absolute value at $\theta \approx 0$ and below $4.1\cdot10^{-4}$ in the other five
+cases, against $|9\delta_3|$ between $4.5$ and $41$ (Table~\ref{tab:order2b});
+\item[(c)] at $\theta \approx 0$, $d_0 = 0$ to about $2\cdot10^{-4}$, and
+$d_1 = 1.0479$ for $LR$ and $d_1 = -0.3023$ for $LLR$: the values of
+$(D(n) - \delta_3m^3)/m$ for $n = 0, 1, 2$ agree to $3.2\cdot10^{-4}$ and
+$1.5\cdot10^{-4}$ (Table~\ref{tab:order2c}), and a term $d_0$ would contribute
+$d_0/m$ to them, which changes by $1.6\,d_0$ over these three levels.
+\end{enumerate}
+For $LLR$, $\theta \approx 3$, only the two-term extrapolation of (a) and (b) is
+available. All of this rests on four values of $r$, with one degree of freedom left
+in the three-term extrapolation.
+\end{observation}
+
+The following reading is heuristic. Observation~\ref{obs:cubic} is what the expansion
+of Section~\ref{sec:normalform},
+$\log\lambda_n = (\text{leading term}) - \hbar^{-1}[H_0(I) + \hbar^2H_2(I) + \cdots]$ at
+$I = \hbar(n+\frac12)$, gives at $\theta = 0$: $H_0$, the classical normal-form
+Hamiltonian, produces $\delta_3m^3$; there is no term of order $\hbar$ inside the
+bracket, which would produce a term $m^2/r^2$ (and a term $m/r$, which
+Observation~\ref{obs:subleading} also does not have); and $\alpha$ and $d_1$
+correspond to $H_2(0)$ and $H_2'(0)$. Away from $\theta = 0$ we have tested only (a)
+and (b).
+
+\subsection{The constant $\alpha$ at $\theta = 0$}\label{sec:alpha0}
+At $\theta_{\mathrm{nom}} = 0$ the rows have $c = (r-1)/2$ and
+$\theta_{\mathrm{row}} = 2\pi/r$. Here $\alpha$ is the intercept of
+$\mathrm{res}_n - \pi\,\mathrm{Im}\,b(\theta_{\mathrm{row}})\,m^2$ in the three-term fit
+of Section~\ref{sec:order2}(c), for each level $n$ separately (block \texttt{B4} of the
+output of \texttt{ladder\_tools order2}). The estimates from $n = 0, 1, 2$ agree to
+$6\cdot10^{-8}$ for $LR$ ($0.44625222$, $0.44625223$, $0.44625228$) and to
+$2\cdot10^{-8}$ for $LLR$ ($0.53590680$, $0.53590680$, $0.53590678$). Higher levels are
+less accurate: over $n = 0, \dots, 7$ the spread is $1.229\cdot10^{-5}$ and
+$5.197\cdot10^{-6}$. The $n = 0$ values are $\alpha = 0.4462522246$ ($LR$) and
+$0.5359068018$ ($LLR$) (output of \texttt{ladder\_tools alpha}, lines
+\texttt{estimate=n=0}); the stored fits of Table~\ref{tab:fits} give $0.44621$ and
+$0.53593$.
+
+Let $S_2$ be the combination~\eqref{eq:S2} of Section~\ref{sec:heuristic},
+$S_2 = \alpha + \gamma/4 + 2\pi\,\mathrm{Im}\big(b/(\mu + \mu^{-1} - 2)\big)$ with
+$\gamma = \pi\,\mathrm{Im}(b)$, everything at $\theta = 0$. Heuristically, under the
+assumptions made there (the ladder dominates the trace, phases aligned), $S_2$ is the
+coefficient of $1/r$ in $\log|\Tr\rho_{r,c}(\varphi)|$. The tool gives
+$\gamma = 1.3819423727$ and $2\pi\,\mathrm{Im}(b/(\mu+\mu^{-1}-2)) = 0.9212949152$ for
+$LR$, and $1.6423994480$ and $0.3186508582$ for $LLR$; the $n = 0$ estimates are
+$S_2 = 1.7130327330$ ($LR$) and $1.2651575220$ ($LLR$).
+
+\begin{observation}[$\alpha$ at $\theta = 0$]\label{obs:alpha0}
+At $\theta_\infty = 0$,
+\[
+LR:\ S_2 = \frac{17\pi}{18\sqrt3}, \quad\text{equivalently}\quad
+\alpha = \frac{31\pi}{126\sqrt3}; \qquad
+LLR:\ S_2 = \frac{179\pi}{168\sqrt7}.
+\]
+For $LR$ the $n = 0$ estimate differs from $17\pi/(18\sqrt3)$ by $8\cdot10^{-11}$; for
+$LLR$ the $n = 0$ estimate of $S_2\sqrt7/\pi$ differs from $179/168$ by
+$3.4\cdot10^{-11}$. The statement is supported only to the agreement between levels,
+$6\cdot10^{-8}$ and $2\cdot10^{-8}$ in $\alpha$, and the rationals are fitted.
+\end{observation}
+
+For $LR$ the two forms are one statement. At $\theta = 0$, $\mu = (5+\sqrt{21})/2$
+exactly (Section~\ref{sec:classical}), so $\mu + \mu^{-1} - 2 = 3$, and the computed
+$\mu$ agrees with this to $10^{-16}$. The computed $b$ agrees with
+$16i/(21\sqrt3)$ to $10^{-16}$ (self-test, INFO item \texttt{NF4}); this is a numerical
+identification, not proved here. With these values $\gamma/4 = 4\pi/(21\sqrt3)$ and
+$2\pi\,\mathrm{Im}(b/3) = 32\pi/(63\sqrt3)$, so $\gamma/4 +
+2\pi\,\mathrm{Im}(b/(\mu+\mu^{-1}-2)) = 88\pi/(126\sqrt3)$ exactly, and
+$17/18 - 88/126 = 31/126$.
+
+We record how the closed forms were found. The form ``rational times $\pi/\sqrt d$''
+was the hypothesis, with $d = 3$ for $LR$ and $d = 7$ for $LLR$. For $LR$ the choice
+comes from the trace field $\mathbb{Q}(\sqrt{-3})$ of the figure-eight knot complement,
+in which the coordinates $z = (3 \pm i\sqrt3)/2$ of the geometric fixed point at
+$\theta = 0$ lie (Section~\ref{sec:classical}) \todo{reference for the trace field of
+the figure-eight knot complement}. For $LLR$, $d = 7$ was tried because
+$\mathbb{Q}(\sqrt{-7})$ was the expected field: at $\theta = 0$ the fixed point has $x$
+and $z^2$ in $\mathbb{Q}(\sqrt{-7})$ (Section~\ref{sec:torsion}) \todo{the invariant
+trace field of the $LLR$ bundle is not stated or sourced in this paper}. The tool tried
+$d = 3, 21$ for $LR$ and $d = 7, 3, 21$ for $LLR$, each for $\alpha$,
+$\alpha + \gamma/4$ and $S_2$, and printed the continued-fraction convergents with
+denominator at most $2000$ of the measured $S_2\sqrt d/\pi$ and the other two
+quantities. The rationals $17/18$ and $179/168$ were read off as such convergents, so
+they are fitted. At $n = 0$ no other convergent in that output comes closer than
+$3\cdot10^{-8}$ (the nearest is $466/893$ for $(\alpha + \gamma/4)\sqrt3/\pi$ of
+$LLR$, at $3.3\cdot10^{-8}$), except those of $\alpha$ and $\alpha + \gamma/4$ for $LR$ at $d = 3$
+($31/126$ and $55/126$), which are equivalent to the $LR$ statement. As a heuristic for
+the chance of a coincidence: a number taken at random in an interval of length $1$
+lies within $\varepsilon$ of a fraction with denominator at most $Q$ with probability at
+most about $Q^2\varepsilon$. With $\varepsilon$ the agreement between levels, scaled
+by $\sqrt d/\pi$ ($3.3\cdot10^{-8}$ for $LR$, $1.7\cdot10^{-8}$ for $LLR$), this is
+about $10^{-5}$ for $Q = 18$ and $5\cdot10^{-4}$ for $Q = 168$, for each quantity
+tried. Six combinations of quantity and $d$ were tried for $LR$ and nine for $LLR$,
+which gives at most about $10^{-4}$ and $5\cdot10^{-3}$ in total.
+
+The value of $\alpha$, and so of $S_2$, depends on the convention $c+1$
+in~\eqref{eq:theta} (Remark~\ref{rem:convention}); the closed forms are stated in that
+convention. For $\theta \ne 0$ we have no formula for $\alpha$. We do not know whether $S_2$ is a
+two-loop invariant of the cusped manifold $M_\varphi$ with respect to the fiber
+boundary curve (Section~\ref{sec:prior}).
 
 \subsection{A grid of angles at small $r$}\label{sec:grid}
 The file \texttt{data/extrap\_r121.csv} gives, on a grid of angles, extrapolations
@@ -1371,6 +2036,85 @@ $LLR$ & 3    & 1.945728 & 1.945714 & 2.7e-5 & 2.409254 & 1.6e-4 \\
 (columns \texttt{Vol}, \texttt{S}, \texttt{S\_err}, \texttt{d0}, \texttt{d0\_err}).}
 \label{tab:grid}
 \end{table}
+
+\subsection{Five further words at small $r$}\label{sec:fivewords}
+Five further words, $LLLR$, $LLRR$, $LLLRR$, $LRLRR$ and $LLLLR$, were run only for
+$r \le 101$ (Section~\ref{sec:method}). The file
+\texttt{data/stress\_7words\_r101.csv} has one row for each of them at
+$\theta = 0, 1, 2, 3$, $20$ rows in all. It
+holds extrapolations from $r \le 101$ of $S = 4\pi L_0/r$ and of the gaps
+$\delta_0, \dots, \delta_5$ (columns \texttt{S}, \texttt{d0}, \dots, \texttt{d5}), with
+error estimates (columns \texttt{S\_err}, \texttt{d0\_err}, \dots), made by a script
+that is not in the repository; we do not know how the error estimates were made. The
+file also has columns \texttt{Vol} and \texttt{logmu}. The tool
+\texttt{analysis/ladder\_tools.cpp} recomputes both from the trace map, at the fixed
+point selected as in Section~\ref{sec:classical}, without reading them; the recomputed
+values agree with the file to $1.4\cdot10^{-15}$ in $\Vol$ and $4.9\cdot10^{-9}$ in
+$\log|\mu|$, which the file prints to eight decimals. In all $20$ rows the fixed point
+of maximal volume is also the non-real fixed point of largest $|\mu|$.
+Table~\ref{tab:fivewords} compares the extrapolated $S$, $\delta_0$ and $\delta_1$ with
+the recomputed $\Vol$ and $\log|\mu|$; by Conjecture~\ref{conj:ladder} all three
+differences tend to $0$.
+
+\begin{table}[ht]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccccc}
+\toprule
+word & $\theta$ & $S - \Vol$ & err($S$) & $\delta_0 - \log|\mu|$ & err($\delta_0$) & $\delta_1 - \log|\mu|$ & err($\delta_1$) \\
+\midrule
+$LLLR$  & 0 & $+4.619\mathrm{e}{-8}$ & $4.14\mathrm{e}{-6}$ & $-2.045\mathrm{e}{-6}$ & $2.26\mathrm{e}{-5}$ & $-1.534\mathrm{e}{-5}$ & $2.57\mathrm{e}{-6}$ \\
+$LLLR$  & 1 & $+3.270\mathrm{e}{-6}$ & $4.11\mathrm{e}{-5}$ & $-5.745\mathrm{e}{-5}$ & $1.53\mathrm{e}{-4}$ & $-3.726\mathrm{e}{-4}$ & $1.05\mathrm{e}{-3}$ \\
+$LLLR$  & 2 & $+4.109\mathrm{e}{-5}$ & $1.04\mathrm{e}{-4}$ & $-6.543\mathrm{e}{-4}$ & $9.57\mathrm{e}{-4}$ & $-3.199\mathrm{e}{-3}$ & $8.41\mathrm{e}{-3}$ \\
+$LLLR$  & 3 & $+1.972\mathrm{e}{-5}$ & $3.86\mathrm{e}{-4}$ & $+1.603\mathrm{e}{-4}$ & $1.60\mathrm{e}{-3}$ & $+8.891\mathrm{e}{-4}$ & $5.74\mathrm{e}{-3}$ \\
+$LLRR$  & 0 & $+3.971\mathrm{e}{-6}$ & $4.37\mathrm{e}{-6}$ & $-6.558\mathrm{e}{-5}$ & $6.47\mathrm{e}{-5}$ & $-4.728\mathrm{e}{-4}$ & $6.09\mathrm{e}{-4}$ \\
+$LLRR$  & 1 & $+1.005\mathrm{e}{-5}$ & $8.34\mathrm{e}{-5}$ & $+1.272\mathrm{e}{-4}$ & $3.71\mathrm{e}{-4}$ & $+4.098\mathrm{e}{-4}$ & $2.13\mathrm{e}{-3}$ \\
+$LLRR$  & 2 & $-3.862\mathrm{e}{-5}$ & $4.29\mathrm{e}{-5}$ & $+1.857\mathrm{e}{-4}$ & $3.71\mathrm{e}{-4}$ & $+9.276\mathrm{e}{-4}$ & $2.14\mathrm{e}{-3}$ \\
+$LLRR$  & 3 & $-2.230\mathrm{e}{-5}$ & $4.12\mathrm{e}{-5}$ & $+1.583\mathrm{e}{-4}$ & $2.61\mathrm{e}{-4}$ & $+5.365\mathrm{e}{-4}$ & $6.23\mathrm{e}{-4}$ \\
+$LLLRR$ & 0 & $+5.963\mathrm{e}{-6}$ & $6.75\mathrm{e}{-7}$ & $-5.046\mathrm{e}{-5}$ & $4.89\mathrm{e}{-5}$ & $-2.699\mathrm{e}{-4}$ & $2.66\mathrm{e}{-4}$ \\
+$LLLRR$ & 1 & $+2.539\mathrm{e}{-5}$ & $4.62\mathrm{e}{-5}$ & $-1.355\mathrm{e}{-4}$ & $4.07\mathrm{e}{-4}$ & $-6.193\mathrm{e}{-4}$ & $2.64\mathrm{e}{-3}$ \\
+$LLLRR$ & 2 & $-3.207\mathrm{e}{-6}$ & $2.65\mathrm{e}{-5}$ & $+1.483\mathrm{e}{-4}$ & $3.59\mathrm{e}{-4}$ & $+7.214\mathrm{e}{-4}$ & $3.29\mathrm{e}{-3}$ \\
+$LLLRR$ & 3 & $-3.470\mathrm{e}{-5}$ & $1.15\mathrm{e}{-4}$ & $+2.494\mathrm{e}{-4}$ & $4.45\mathrm{e}{-4}$ & $+1.260\mathrm{e}{-3}$ & $2.43\mathrm{e}{-3}$ \\
+$LRLRR$ & 0 & $+2.657\mathrm{e}{-6}$ & $9.71\mathrm{e}{-6}$ & $-6.055\mathrm{e}{-5}$ & $1.19\mathrm{e}{-5}$ & $-3.550\mathrm{e}{-4}$ & $2.38\mathrm{e}{-4}$ \\
+$LRLRR$ & 1 & $+1.513\mathrm{e}{-5}$ & $8.56\mathrm{e}{-5}$ & $-1.507\mathrm{e}{-4}$ & $2.33\mathrm{e}{-4}$ & $-6.992\mathrm{e}{-4}$ & $1.04\mathrm{e}{-3}$ \\
+$LRLRR$ & 2 & $-3.534\mathrm{e}{-5}$ & $4.81\mathrm{e}{-5}$ & $+3.231\mathrm{e}{-4}$ & $4.54\mathrm{e}{-4}$ & $+1.210\mathrm{e}{-3}$ & $3.24\mathrm{e}{-3}$ \\
+$LRLRR$ & 3 & $-2.200\mathrm{e}{-5}$ & $5.44\mathrm{e}{-5}$ & $+2.416\mathrm{e}{-4}$ & $4.25\mathrm{e}{-4}$ & $+7.523\mathrm{e}{-4}$ & $1.12\mathrm{e}{-3}$ \\
+$LLLLR$ & 0 & $-1.869\mathrm{e}{-6}$ & $3.12\mathrm{e}{-6}$ & $-3.375\mathrm{e}{-6}$ & $1.93\mathrm{e}{-5}$ & $-5.708\mathrm{e}{-5}$ & $6.37\mathrm{e}{-5}$ \\
+$LLLLR$ & 1 & $-7.184\mathrm{e}{-6}$ & $3.66\mathrm{e}{-5}$ & $-3.611\mathrm{e}{-5}$ & $6.13\mathrm{e}{-4}$ & $+4.829\mathrm{e}{-4}$ & $8.73\mathrm{e}{-3}$ \\
+$LLLLR$ & 2 & $+2.879\mathrm{e}{-5}$ & $5.50\mathrm{e}{-5}$ & $-3.347\mathrm{e}{-4}$ & $4.89\mathrm{e}{-4}$ & $-1.770\mathrm{e}{-3}$ & $1.46\mathrm{e}{-2}$ \\
+$LLLLR$ & 3 & $+3.456\mathrm{e}{-5}$ & $4.52\mathrm{e}{-4}$ & $-5.837\mathrm{e}{-4}$ & $2.97\mathrm{e}{-3}$ & $-4.567\mathrm{e}{-3}$ & $1.26\mathrm{e}{-2}$ \\
+\bottomrule
+\end{tabular}
+\caption{Five further words, extrapolations from $r \le 101$. $S$, $\delta_0$,
+$\delta_1$ and the error estimates are the columns \texttt{S}, \texttt{d0},
+\texttt{d1}, \texttt{S\_err}, \texttt{d0\_err}, \texttt{d1\_err} of
+\texttt{data/stress\_7words\_r101.csv}, lines 2--21; $\Vol$ and $\log|\mu|$ are
+recomputed. Copied from the first table of the output of \texttt{ladder\_tools stress
+data/stress\_7words\_r101.csv}.}
+\label{tab:fivewords}
+\end{table}
+
+In all $20$ rows $|S - \Vol| \le 4.2\cdot10^{-5}$,
+$|\delta_0 - \log|\mu|| \le 6.6\cdot10^{-4}$ and
+$|\delta_1 - \log|\mu|| \le 4.6\cdot10^{-3}$, while $\log|\mu|$ lies between $2.78$
+and $4.21$; the largest values are at $LLLR$, $\theta = 2$ (the first two) and
+$LLLLR$, $\theta = 3$. Of the $60$ differences, $53$ are within the stored error
+estimate. Four exceed it by a factor below $1.5$, and three by a factor of $5$ to $9$:
+$S$ at $LLLRR$, $\theta = 0$ (factor $8.8$), $\delta_0$ at $LRLRR$, $\theta = 0$ (factor
+$5.1$), and $\delta_1$ at $LLLR$, $\theta = 0$ (factor $6.0$). All seven are at
+$\theta = 0$, where for each word the three stored error estimates are smallest. Since we do not know how
+these estimates were made, we do not take them as reliable, and we read the seven
+exceedances as a statement about the estimates rather than about the ladder; but this
+reading is not tested.
+
+This supports the leading term of Conjecture~\ref{conj:ladder} and its first gap
+$\delta_0 \to \log|\mu|$, and also $\delta_1 \to \log|\mu|$, at
+$\theta = 0, 1, 2, 3$ for these five words, so for seven words in total with $LR$ and
+$LLR$. It rests on $r \le 101$ only, extrapolated by a script that is not in the
+repository. It says nothing about $\alpha$ or $\gamma$ for these words; for those
+Table~\ref{tab:predict} gives predictions only. The extrapolations of the higher gaps
+in the same file are unusable (Section~\ref{sec:method}).
 
 %======================================================================
 \section{Relation to prior work and open problems}\label{sec:prior}
@@ -1511,12 +2255,25 @@ computation is not certified, so we draw no conclusion from it.
 \item Prove Conjecture~\ref{conj:ladder}, first for $n = 0$ and for $LR$, where the
 cone structures and torsion are explicit \cite{PW, Porti}.
 \item Closed forms for $\alpha$ and $\gamma$. For $\gamma$ see
-Observation~\ref{obs:twist}; $\alpha$ is open. A natural guess is a two-loop
-invariant of the cone manifold.
+Observation~\ref{obs:twist}. For $\alpha$ at $\theta = 0$,
+Observation~\ref{obs:alpha0} gives conjectural closed forms for $LR$ and $LLR$, with
+fitted rationals; a derivation is open. For $\theta \ne 0$ we have no formula for
+$\alpha$. It is not known whether the combination $S_2$ of~\eqref{eq:S2} is a
+two-loop invariant of the cusped manifold $M_\varphi$ with respect to the fiber
+boundary curve.
+\item The coefficient $d_1$ of Observation~\ref{obs:cubic}(c) has no proposed formula;
+in the heuristic of Section~\ref{sec:normalform} it is
+$4\pi^2\,\mathrm{Re}\,H_2'(0)$. Away from $\theta = 0$ the terms $d_0 + d_1(n+\frac12)$
+of order $r^{-2}$ are not tested.
+\item Prove the value $b = 16i/(21\sqrt3)$ for $LR$ at $\theta = 0$, which is
+identified only numerically (Section~\ref{sec:alpha0}).
 \item Phases. Open: the phases of the eigenvalues are not in the data.
 Section~\ref{sec:normalform} predicts $\arg\lambda_n$ up to $n$-independent terms;
 the leading phase should be related to $r\,CS/4\pi$.
-\item More words. Open: words other than $LR$ and $LLR$ at large $r$.
+\item More words. Open: words other than $LR$ and $LLR$ at large $r$. For five further
+words the leading term and the first two gaps are supported only by extrapolations
+from $r \le 101$ (Section~\ref{sec:fivewords}), and $\gamma = \pi\,\mathrm{Im}(b)$ is
+untested; Table~\ref{tab:predict} gives the predicted values.
 \item Higher genus. On a surface whose relative character variety has dimension
 $2m$, the same heuristic suggests eigenvalue moduli indexed by $(n_1,\dots,n_m)$ with
 $\sum_i (n_i + \frac12)\log|\mu_i|$ in place of $(n+\frac12)\log|\mu|$. This is a
@@ -1568,8 +2325,13 @@ $\beta_{1,0}, \dots, \beta_{8,0}$ (header \texttt{b1..b8}), \texttt{logmu},
 \texttt{d2logmu}, all at the nominal angle.
 \item[\texttt{data/extrap\_r121.csv}] Described column by column in
 Section~\ref{sec:grid}.
-\item[\texttt{data/stress\_7words\_r101.csv}] Extrapolations for seven words from
-$r \le 101$; not used as evidence (Section~\ref{sec:method}).
+\item[\texttt{data/stress\_7words\_r101.csv}] Extrapolations from $r \le 101$ for the
+five words $LLLR$, $LLRR$, $LLLRR$, $LRLRR$, $LLLLR$ at $\theta = 0, 1, 2, 3$ (lines
+2--21), made by a script that is not in the repository. Its columns \texttt{S},
+\texttt{d0}, \texttt{d1} and their error estimates are used in
+Section~\ref{sec:fivewords}; its columns \texttt{Vol} and \texttt{logmu} are only
+compared with recomputed values; the higher gaps are not used
+(Section~\ref{sec:method}).
 \item[\texttt{figures/four\_panel.png}] Produced by \texttt{analysis/plot4.py} from
 \texttt{data/r201-1001\_summary.txt} and from the output of
 \texttt{analysis/analyze\_rows.py} on the $r = 2001$ raw rows; that output file
@@ -1612,13 +2374,68 @@ solver runs, and no stored run has $c = 0$.
 \item[Trace map] \texttt{analysis/trace\_map.py} implements $L$, $R$ (lines 3--9),
 $\kappa$ (line 10) and the level $\kappa = -2\cos(\theta/2)$ (line 12), and selects
 the non-real fixed point of largest $|\mu|$ (lines 11--24 and 36--43).
-\texttt{analysis/ladder\_tools.cpp} selects the fixed point of maximal volume
-(lines 173--192), with the tetrahedron volume at lines 116--171 and the choice
-$\mathrm{Im}\,x > 0$ at line 183; its self-test (line 436) reports that the two
-selection rules agree in the eight cases. Its subcommand \texttt{twist} computes the
-values of $b$ in Table~\ref{tab:twist}; to reproduce them, build that file and run
-the subcommand. The same tool performs the refit of $\alpha$ and $\gamma$ described
-in Section~\ref{sec:evidence}.
+\texttt{analysis/ladder\_tools.cpp} finds the fixed points on the level surface by
+Newton's method from $400$ pseudo-random complex starting points, in two passes: plain
+Newton, and then damped Newton from the same starting points, halving the step while
+the residual does not decrease (lines 84--127). The second pass was added because
+plain Newton missed the geometric fixed point of $LRLRR$; the selected points for $LR$
+and $LLR$ are unchanged by it (self-test, item \texttt{C1}). The tool selects the
+fixed point of maximal volume (lines 195--214), with the tetrahedron volume at lines
+136--193 and the choice $\mathrm{Im}\,x > 0$ at lines 205--207, and implements rule~S
+of Section~\ref{sec:normalform} at lines 660--677. The normal form, to degree $5$,
+with $\mu$, $b$ and $c$ and the correction by $j_1$ of Section~\ref{sec:normalform}, is
+at lines 285--351. Its subcommand \texttt{twist}
+computes the values of $b$ in Table~\ref{tab:twist}; to reproduce them, build that
+file and run the subcommand. The same tool performs the refit of $\alpha$ and $\gamma$
+described in Section~\ref{sec:evidence}. Build it with \texttt{g++ -O2 -std=c++17
+-Wall -Wextra analysis/ladder\_tools.cpp -o ladder\_tools} and run it from the
+repository root. The commands \texttt{ladder\_tools robust data/r2001\_raw.txt
+data/r3001-5001\_raw.txt data/r10001\_raw.txt}, \texttt{ladder\_tools gaps
+data/r201-1001\_summary.txt} and \texttt{ladder\_tools stress
+data/stress\_7words\_r101.csv} produce the numbers of Section~\ref{sec:robust}, of
+Section~\ref{sec:fivewords} and of Table~\ref{tab:predict}. The command
+\texttt{ladder\_tools order2 data/r2001\_raw.txt data/r3001-5001\_raw.txt
+data/r10001\_raw.txt} reads the same raw rows and prints four blocks: \texttt{B1}, the
+third differences $T_n$ per row and their extrapolations in $r$
+(Table~\ref{tab:order2a}); \texttt{B2}, the fourth differences; \texttt{B3}, the
+quantities $W_n$ per row and their extrapolations (Table~\ref{tab:order2b}); and
+\texttt{B4}, at $\theta_{\mathrm{nom}} = 0$ only, the intercepts $\alpha$ and slopes
+$D(n)$ per level and the fits of $D(n)$ in powers of $n + \frac12$
+(Table~\ref{tab:order2c}). The command \texttt{ladder\_tools alpha} with the same three
+files prints, for $\theta_{\mathrm{nom}} = 0$, the estimates of $\alpha$, $\alpha +
+\gamma/4$ and $S_2$ from block \texttt{B4} (mean over $n$ and $n = 0$), their
+continued-fraction convergents after multiplication by $\sqrt d/\pi$
+(Section~\ref{sec:alpha0}), and, for all eight cases, $\mu$, $b$, $c$,
+$8\pi^2\,\mathrm{Re}(c)$ and $2\pi\,\mathrm{Im}(b/(\mu+\mu^{-1}-2))$ at the nominal
+angle (Table~\ref{tab:c}). These two subcommands use the code at lines 693--771. The
+output of all these commands is not stored in the repository. The self-test
+(\texttt{ladder\_tools selftest}, lines 786--1095)
+reports $248$ PASS, $29$ INFO and $0$ FAIL. It reports, as INFO and not as a check, that the rules of
+maximal volume and of largest $|\mu|$ agree in the eight cases of $LR$ and $LLR$.
+Among other things it checks that
+the recomputed $\Vol$ and $\log|\mu|$ agree with \texttt{data/stress\_7words\_r101.csv};
+that exactly the two variants named in Section~\ref{sec:robust} are singular; that
+the three-term estimate from $r \le 1001$ is within its rounding bound in all eight
+cases; that the signed volume does not depend on the auxiliary choices made in
+computing it and changes sign under complex conjugation (items \texttt{D1}); that
+rule~S selects the point with $\mathrm{Im}\,x > 0$ for $LR$ and $LLR$ (items
+\texttt{D2}); that the points of maximal volume with positive signed volume have the
+same $\mu$ and $b$, in the $20$ of the $28$ cases that have more than one such point
+(items \texttt{D3}; the other eight are reported as INFO); and that under rule~S
+$\mathrm{Im}(b)$ is positive at $\theta = 0, 1, 2, 3$ for each of the five further
+words (items \texttt{D4}). For the normal form and the fits of order $r^{-2}$ (lines
+1002--1092) it checks that a
+synthetic map with planted $\log\mu$, $b$ and $c$ is recovered to $10^{-18}$ (item
+\texttt{NF1}; the error without the correction by $j_1$, $0.17$, is reported as INFO);
+that cyclic rotations of $LR$ and $LLR$ give the same $\mu$, $b$ and $c$ (items
+\texttt{NF2}; the rotation $LRL$ is reported as INFO and skipped, for the reason given
+in Section~\ref{sec:normalform}); that $b$ is unchanged from the earlier normal form to
+degree $3$ (items \texttt{NF3}); and that a coefficient of degree $5$ of the normal
+form, and the low-order terms of the Jacobian determinant, are as the construction
+requires (items \texttt{NF5}). It reports $c$ and $j_1$ for the eight cases, and for
+$LR$ at $\theta = 0$ the differences $\mu - (5+\sqrt{21})/2$ and $b - 16i/(21\sqrt3)$,
+as INFO (items \texttt{NF4}). Items \texttt{O2S} check the fits of
+\texttt{order2} on synthetic rows with planted constants.
 \item[Volumes] \texttt{analysis/analyze\_rows.py}, lines 5--8, computes the SnapPy
 volume of the bundle $b{+}{+}\varphi$ after the filling $(2\pi/\theta, 0)$, and
 $\log\mu$ at the exact $\theta$ of each raw row. The \texttt{Vol} column of
